@@ -1,0 +1,120 @@
+{% comment %} Flash Sale Countdown Section {% endcomment %}
+
+{% if section.settings.show_countdown %}
+<section class="flash-sale-section" aria-label="Flash Sale">
+  <div class="container">
+    <div class="flash-sale-inner">
+
+      <div class="flash-sale__left">
+        <div class="flash-sale__badge">⚡ FLASH SALE</div>
+        <h2 class="flash-sale__title">{{ section.settings.sale_title }}</h2>
+        <p class="flash-sale__subtitle">{{ section.settings.sale_subtitle }}</p>
+        <a href="{{ section.settings.sale_link }}" class="btn btn-primary flash-sale__cta" id="FlashSaleCta">
+          Shop the Sale
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="flash-sale__right">
+        <p class="flash-sale__ends">Offer Ends In:</p>
+        <div class="countdown" id="SaleCountdown" aria-live="polite" aria-label="Countdown timer">
+          <div class="countdown__unit">
+            <span class="countdown__number" id="CDDays">00</span>
+            <span class="countdown__label">Days</span>
+          </div>
+          <div class="countdown__colon" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="CDHours">00</span>
+            <span class="countdown__label">Hours</span>
+          </div>
+          <div class="countdown__colon" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="CDMins">00</span>
+            <span class="countdown__label">Mins</span>
+          </div>
+          <div class="countdown__colon" aria-hidden="true">:</div>
+          <div class="countdown__unit">
+            <span class="countdown__number" id="CDSecs">00</span>
+            <span class="countdown__label">Secs</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var endDate = new Date('{{ section.settings.sale_end_date }}T23:59:59');
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      var now = new Date();
+      var diff = endDate - now;
+      if(diff <= 0){
+        document.getElementById('SaleCountdown') && (document.getElementById('SaleCountdown').innerHTML = '<p style="color:#FFD700;font-weight:700">Sale Ended</p>');
+        return;
+      }
+      var days  = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins  = Math.floor((diff % 3600000) / 60000);
+      var secs  = Math.floor((diff % 60000) / 1000);
+      var d = document.getElementById('CDDays');
+      var h = document.getElementById('CDHours');
+      var m = document.getElementById('CDMins');
+      var s = document.getElementById('CDSecs');
+      if(d) d.textContent = pad(days);
+      if(h) h.textContent = pad(hours);
+      if(m) m.textContent = pad(mins);
+      if(s) s.textContent = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+  </script>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Flash Sale Countdown",
+  "tag": "section",
+  "class": "flash-sale-wrap",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show Flash Sale Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sale_title",
+      "label": "Sale Title",
+      "default": "Mega Baby Toy Sale!"
+    },
+    {
+      "type": "text",
+      "id": "sale_subtitle",
+      "label": "Sale Subtitle",
+      "default": "Up to 80% off on selected toys. Don't miss out!"
+    },
+    {
+      "type": "url",
+      "id": "sale_link",
+      "label": "Sale Collection Link"
+    },
+    {
+      "type": "text",
+      "id": "sale_end_date",
+      "label": "Sale End Date (YYYY-MM-DD)",
+      "default": "2025-12-31",
+      "info": "Set the end date of your sale in YYYY-MM-DD format"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flash Sale Countdown"
+    }
+  ]
+}
+{% endschema %}

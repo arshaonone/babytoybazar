@@ -16,14 +16,19 @@
     {%- assign on_sale = true -%}
     {%- assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
   {%- endif -%}
-  {%- comment -%} Check if product is new via tag or recent creation (safe method) {%- endcomment -%}
   {%- assign is_new = false -%}
   {%- if product.tags contains 'new' or product.tags contains 'New' or product.tags contains 'new-arrival' -%}
     {%- assign is_new = true -%}
   {%- endif -%}
+  {%- assign is_hot = false -%}
+  {%- if product.tags contains 'hot' or product.tags contains 'bestseller' or product.tags contains 'trending' -%}
+    {%- assign is_hot = true -%}
+  {%- endif -%}
   {%- assign product_type = product.type -%}
   {%- assign vendor = product.vendor -%}
   {%- assign available = product.available -%}
+  {%- assign stock_qty = variant.inventory_quantity -%}
+  {%- assign color_options = product.options_by_name['Color'] -%}
 {%- else -%}
   {%- assign demo_titles = "RC Fire Rescue Truck,Blue Police Tanker,Cycling Doll Toy,Ice Cream Cart Toy,Rainbow Stacking Rings,STEM Building Blocks,Baby Activity Gym,Wooden Animal Puzzle" | split: ',' -%}
   {%- assign demo_prices = "$34.99,$19.99,$22.99,$27.99,$24.99,$39.99,$44.99,$18.99" | split: ',' -%}
@@ -40,58 +45,67 @@
   {%- assign save_pct = 30 -%}
   {%- assign is_new = false -%}
   {%- if index == 3 or index == 4 -%}{%- assign is_new = true -%}{%- endif -%}
+  {%- assign is_hot = false -%}
+  {%- if index == 1 or index == 7 -%}{%- assign is_hot = true -%}{%- endif -%}
   {%- assign available = true -%}
   {%- assign product_type = nil -%}
   {%- assign vendor = nil -%}
+  {%- assign stock_qty = 5 -%}
 {%- endif -%}
 
-<article class="product-card" aria-label="{{ product_title }}">
+<article class="product-card" aria-label="{{ product_title | escape }}" itemscope itemtype="https://schema.org/Product">
+  <meta itemprop="name" content="{{ product_title | escape }}">
 
-  <!-- Image area -->
+  <!-- ===== IMAGE AREA ===== -->
   <div class="product-card__img-wrap">
-    <a href="{{ product_url }}" tabindex="-1" aria-hidden="true">
+    <a href="{{ product_url }}" tabindex="-1" aria-hidden="true" class="product-card__img-link">
       {%- if product_image != blank -%}
         <img src="{{ product_image | image_url: width: 480 }}"
-             srcset="{{ product_image | image_url: width: 240 }} 240w, {{ product_image | image_url: width: 480 }} 480w"
-             sizes="(max-width:480px) 50vw, 240px"
+             srcset="{{ product_image | image_url: width: 240 }} 240w, {{ product_image | image_url: width: 480 }} 480w, {{ product_image | image_url: width: 720 }} 720w"
+             sizes="(max-width:480px) 50vw, 280px"
              alt="{{ product_image.alt | default: product_title | escape }}"
              class="product-card__img"
              loading="lazy"
-             width="480" height="480">
+             width="480" height="480"
+             itemprop="image">
         {%- if product_image_2 != blank -%}
           <img src="{{ product_image_2 | image_url: width: 480 }}"
-               alt="{{ product_title | escape }}"
+               alt="{{ product_title | escape }} alternate view"
                class="product-card__img-alt"
                loading="lazy"
                width="480" height="480">
         {%- endif -%}
       {%- else -%}
-        <!-- Demo placeholder image with toy emoji -->
         {%- assign demo_emojis = '🧸,🧩,🎮,🎁,🚂,🎨,🏆,🎯' | split: ',' -%}
         {%- assign emoji = demo_emojis[forloop.index0 | modulo: 8] | default: '🧸' -%}
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#FFF9E0,#FFF0CC)" aria-hidden="true">{{ emoji }}</div>
+        <div class="product-card__placeholder" aria-hidden="true">
+          <span>{{ emoji }}</span>
+        </div>
       {%- endif -%}
     </a>
 
     <!-- Badges -->
-    <div class="product-badges" aria-label="Product badges">
+    <div class="product-badges" aria-label="Product labels">
       {%- if on_sale -%}
-        <span class="badge badge-sale" aria-label="On sale, {{ save_pct }}% off">-{{ save_pct }}%</span>
+        <span class="badge badge-sale" aria-label="On sale, save {{ save_pct }}%">-{{ save_pct }}%</span>
       {%- endif -%}
       {%- if is_new -%}
-        <span class="badge badge-new" aria-label="New arrival">New</span>
+        <span class="badge badge-new" aria-label="New arrival">NEW</span>
+      {%- endif -%}
+      {%- if is_hot -%}
+        <span class="badge badge-hot" aria-label="Hot product">🔥 HOT</span>
       {%- endif -%}
       {%- unless available -%}
-        <span class="badge" style="background:var(--color-text-light);color:#fff" aria-label="Sold out">Sold Out</span>
+        <span class="badge badge-soldout" aria-label="Sold out">Sold Out</span>
       {%- endunless -%}
     </div>
 
     <!-- Quick action buttons -->
-    <div class="product-card__actions" aria-label="Product actions">
+    <div class="product-card__actions" aria-label="Product quick actions">
       <!-- Wishlist -->
       <button class="product-action-btn"
               data-wishlist-toggle="{{ variant_id }}"
-              aria-label="Add {{ product_title }} to wishlist"
+              aria-label="Add {{ product_title | escape }} to wishlist"
               title="Add to Wishlist">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -102,7 +116,7 @@
       {%- if product != nil -%}
         <button class="product-action-btn"
                 data-quick-view="{{ product_handle }}"
-                aria-label="Quick view {{ product_title }}"
+                aria-label="Quick view {{ product_title | escape }}"
                 title="Quick View">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -114,26 +128,34 @@
       <!-- Compare -->
       <button class="product-action-btn"
               data-compare="{{ variant_id }}"
-              aria-label="Compare {{ product_title }}"
+              aria-label="Compare {{ product_title | escape }}"
               title="Compare">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
         </svg>
       </button>
     </div>
+
+    <!-- Low Stock Alert -->
+    {%- if available and stock_qty > 0 and stock_qty <= 5 and stock_qty != nil -%}
+      <div class="product-card__low-stock" aria-live="polite">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Only {{ stock_qty }} left!
+      </div>
+    {%- endif -%}
   </div>
 
-  <!-- Card body -->
+  <!-- ===== CARD BODY ===== -->
   <div class="product-card__body">
     {%- if vendor != blank -%}
-      <p class="product-card__category">{{ vendor }}</p>
+      <p class="product-card__category" itemprop="brand">{{ vendor }}</p>
     {%- elsif product_type != blank -%}
       <p class="product-card__category">{{ product_type }}</p>
     {%- else -%}
       <p class="product-card__category">BabyToyBazar</p>
     {%- endif -%}
 
-    <a href="{{ product_url }}" class="product-card__name">{{ product_title }}</a>
+    <a href="{{ product_url }}" class="product-card__name" itemprop="url">{{ product_title }}</a>
 
     <!-- Star Rating -->
     {%- if settings.show_ratings -%}
@@ -142,7 +164,7 @@
       <div class="product-rating" aria-label="{{ rating }} out of 5 stars, {{ review_count }} reviews">
         <div class="stars" aria-hidden="true">
           {%- for i in (1..5) -%}
-            <svg class="star-icon{% if i <= rating %} filled{% endif %}" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="star-icon{% if i <= rating %} filled{% endif %}" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true">
               {%- if i <= rating -%}
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
               {%- else -%}
@@ -155,22 +177,36 @@
       </div>
     {%- endif -%}
 
-    <!-- Price -->
-    <div class="product-card__price-row">
-      <span class="price-current">{{ product_price }}</span>
-      {%- if product_compare_price != blank and product_compare_price != '' -%}
-        <span class="price-original">{{ product_compare_price }}</span>
-        {%- if on_sale -%}
-          <span class="price-save">Save {{ save_pct }}%</span>
+    <!-- Color swatches (if color variants exist) -->
+    {%- if color_options and color_options.values.size > 1 -%}
+      <div class="product-card__swatches" aria-label="Available colors">
+        {%- for color in color_options.values limit: 5 -%}
+          <span class="color-swatch"
+                style="background-color:{{ color | downcase | replace: ' ', '' }}"
+                title="{{ color }}"
+                aria-label="{{ color }}"></span>
+        {%- endfor -%}
+        {%- if color_options.values.size > 5 -%}
+          <span class="color-swatch-more">+{{ color_options.values.size | minus: 5 }}</span>
         {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <!-- Price -->
+    <div class="product-card__price-row" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+      <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+      <span class="price-current" itemprop="price" content="{{ product.price | divided_by: 100.0 }}">{{ product_price }}</span>
+      {%- if product_compare_price != blank and product_compare_price != '' and on_sale -%}
+        <span class="price-original">{{ product_compare_price }}</span>
+        <span class="price-save">Save {{ save_pct }}%</span>
       {%- endif -%}
     </div>
 
-    <!-- Add to Cart -->
+    <!-- Add to Cart / Sold Out -->
     {%- if available -%}
       <button class="product-card__atc"
               data-add-to-cart="{{ variant_id }}"
-              aria-label="Add {{ product_title }} to cart"
+              aria-label="Add {{ product_title | escape }} to shopping cart"
               id="atc-{{ variant_id }}">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
@@ -179,7 +215,8 @@
         {{ 'cart.add' | t }}
       </button>
     {%- else -%}
-      <button class="product-card__atc" disabled aria-disabled="true" style="opacity:0.5;cursor:not-allowed">
+      <button class="product-card__atc product-card__atc--soldout" disabled aria-disabled="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
         {{ 'products.product.sold_out' | t }}
       </button>
     {%- endif -%}

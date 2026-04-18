@@ -773,15 +773,195 @@ const Compare = {
 
 
 /* ========================================================
+   20. LANGUAGE & CURRENCY DROPDOWN (header/announcement)
+======================================================== */
+class LCDropdowns {
+  constructor() {
+    /* Setup all lc-dropdown elements */
+    BTB.qsa('.lc-dropdown').forEach(wrap => {
+      const trigger = wrap.querySelector('.lc-trigger');
+      const list    = wrap.querySelector('.lc-list');
+      if (!trigger || !list) return;
+      BTB.on(trigger, 'click', e => {
+        e.stopPropagation();
+        const open = BTB.toggleClass(list, 'open');
+        trigger.setAttribute('aria-expanded', list.classList.contains('open') ? 'true' : 'false');
+      });
+      document.addEventListener('click', () => {
+        BTB.removeClass(list, 'open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      list.addEventListener('click', e => e.stopPropagation());
+    });
+  }
+}
+
+
+/* ========================================================
+   21. RECENTLY VIEWED TRACKER (product pages)
+======================================================== */
+class RecentlyViewed {
+  constructor() {
+    this.key = 'btb_recently_viewed';
+    /* If on a product page, record the product */
+    const metaEl = BTB.qs('[data-btb-product]');
+    if (metaEl) {
+      try {
+        const data = JSON.parse(metaEl.dataset.btbProduct);
+        if (data && data.id) this.record(data);
+      } catch(e) {}
+    }
+  }
+  record(data) {
+    let items = this.load();
+    items = items.filter(i => i.id !== data.id);
+    items.unshift(data);
+    if (items.length > 8) items = items.slice(0, 8);
+    this.save(items);
+  }
+  load() {
+    try { return JSON.parse(localStorage.getItem(this.key)) || []; }
+    catch { return []; }
+  }
+  save(items) { localStorage.setItem(this.key, JSON.stringify(items)); }
+}
+
+
+/* ========================================================
+   22. STICKY HEADER SHRINK ON SCROLL
+======================================================== */
+class HeaderShrink {
+  constructor() {
+    this.header = BTB.qs('.site-header');
+    if (!this.header) return;
+    window.addEventListener('scroll', BTB.debounce(() => {
+      if (window.scrollY > 80) {
+        BTB.addClass(this.header, 'scrolled');
+      } else {
+        BTB.removeClass(this.header, 'scrolled');
+      }
+    }, 10), { passive: true });
+  }
+}
+
+
+/* ========================================================
+   23. PRODUCT IMAGE ZOOM (hover zoom on product page)
+======================================================== */
+class ProductZoom {
+  constructor() {
+    const mainImg = BTB.qs('.product-gallery__main');
+    if (!mainImg) return;
+    mainImg.style.overflow = 'hidden';
+    mainImg.style.cursor   = 'zoom-in';
+    const img = mainImg.querySelector('img');
+    if (!img) return;
+    mainImg.addEventListener('mousemove', e => {
+      const rect = mainImg.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      img.style.transformOrigin = `${x}% ${y}%`;
+      img.style.transform = 'scale(1.65)';
+      img.style.transition = 'transform 0.1s ease';
+    });
+    mainImg.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1)';
+      img.style.transition = 'transform 0.3s ease';
+    });
+  }
+}
+
+
+/* ========================================================
+   24. SCROLL PROGRESS BAR
+======================================================== */
+class ScrollProgressBar {
+  constructor() {
+    const bar = BTB.qs('.scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct  = docH > 0 ? (window.scrollY / docH) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  }
+}
+
+
+/* ========================================================
+   25. PRODUCT CARD — HOVER SOUND FEEDBACK (subtle)
+      & ATC ripple effect
+======================================================== */
+class ATCRipple {
+  constructor() {
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.product-card__atc:not(.product-card__atc--soldout)');
+      if (!btn) return;
+      /* Ripple effect */
+      const ripple = document.createElement('span');
+      const rect   = btn.getBoundingClientRect();
+      const size   = Math.max(rect.width, rect.height);
+      ripple.style.cssText = `
+        position:absolute;width:${size}px;height:${size}px;
+        top:${e.clientY - rect.top - size/2}px;
+        left:${e.clientX - rect.left - size/2}px;
+        background:rgba(255,255,255,0.5);border-radius:50%;
+        transform:scale(0);animation:rippleEffect 0.6s ease forwards;
+        pointer-events:none;
+      `;
+      if (!btn.style.position || btn.style.position === 'static') btn.style.position = 'relative';
+      btn.style.overflow = 'hidden';
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    });
+    /* Add ripple keyframes */
+    if (!document.getElementById('btb-ripple-style')) {
+      const s = document.createElement('style');
+      s.id = 'btb-ripple-style';
+      s.textContent = '@keyframes rippleEffect{to{transform:scale(2.5);opacity:0}}';
+      document.head.appendChild(s);
+    }
+  }
+}
+
+
+/* ========================================================
+   26. WISHLIST COUNT BADGE
+======================================================== */
+class WishlistBadge {
+  update() {
+    try {
+      const items = JSON.parse(localStorage.getItem('btb_wishlist')) || [];
+      const badge = BTB.qs('#WishlistCount');
+      if (badge) {
+        badge.textContent = items.length;
+        badge.style.display = items.length > 0 ? 'flex' : 'none';
+      }
+    } catch(e) {}
+  }
+  constructor() {
+    this.update();
+    document.addEventListener('click', e => {
+      if (e.target.closest('[data-wishlist-toggle]')) {
+        setTimeout(() => this.update(), 100);
+      }
+    });
+  }
+}
+
+
+/* ========================================================
    INIT ALL
 ======================================================== */
 function init() {
   new StickyHeader();
+  new HeaderShrink();
   new MobileNav();
   new SearchOverlay();
   window._cartDrawerInstance = new CartDrawer();
   new AddToCart();
   new Wishlist();
+  new WishlistBadge();
   new HeroSlider();
   new CategoryCarousel();
   new ProductTabs();
@@ -790,18 +970,28 @@ function init() {
   new NewsletterForm();
   new CatsMegaMenu();
   new ProductGallery();
+  new ProductZoom();
   new QtySelector();
   new ScrollAnimations();
   new NavA11y();
   new BackToTop();
   Compare.init();
+  new LCDropdowns();
+  new RecentlyViewed();
+  new ScrollProgressBar();
+  new ATCRipple();
 
   /* Remove no-js class */
   document.documentElement.classList.remove('no-js');
 
-  /* Announce sticky header height to CSS */
+  /* Update header height CSS var */
   const header = document.querySelector('.site-header');
-  if (header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  if (header) {
+    document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    }).observe(header);
+  }
 }
 
 if (document.readyState === 'loading') {
@@ -809,3 +999,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+

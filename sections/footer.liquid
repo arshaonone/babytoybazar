@@ -142,42 +142,27 @@
     </div>
   </div>
 
-  <!-- Footer bottom bar -->
-  <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:0">
-    <div class="footer-bottom">
-      <p class="footer-copyright">{{ settings.footer_copyright }}</p>
-
-      <!-- Payment badges -->
+      <!-- Payment Methods -->
       <div class="footer-payments" aria-label="Accepted payment methods">
-        <span class="payment-icon visa" aria-label="Visa">VISA</span>
-        <span class="payment-icon" aria-label="Mastercard" style="font-size:0.65rem">MC</span>
-        <span class="payment-icon" aria-label="PayPal" style="color:#009cde;font-size:0.65rem">PayPal</span>
-        <span class="payment-icon" aria-label="Apple Pay" style="font-size:0.65rem">Apple Pay</span>
-        <span class="payment-icon" aria-label="Google Pay" style="font-size:0.65rem">G Pay</span>
-        <span class="payment-icon" aria-label="American Express" style="font-size:0.6rem">AMEX</span>
+        <span class="payment-icon" aria-label="Visa">VISA</span>
+        <span class="payment-icon" aria-label="Mastercard">MC</span>
+        <span class="payment-icon" aria-label="PayPal" style="color:#009cde">PayPal</span>
+        <span class="payment-icon" aria-label="Apple Pay">Apple Pay</span>
+        <span class="payment-icon" aria-label="Google Pay">G Pay</span>
+        <span class="payment-icon" aria-label="American Express">AMEX</span>
+        <span class="payment-icon" aria-label="Stripe" style="color:#7c3aed">Stripe</span>
+      </div>
+
+      <!-- Safety Badge -->
+      <div style="margin-top:0.5rem;display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.45)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        All toys are CE certified & CPSC compliant · Safe for ages 0+
       </div>
     </div>
   </div>
 
-  <!-- Back to top button -->
-  <button class="back-to-top" aria-label="Back to top" title="Back to top"
-          style="position:fixed;bottom:2rem;right:2rem;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));color:var(--color-dark);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,215,0,0.4);opacity:0;transition:all 0.3s;z-index:100;pointer-events:none">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
 
 </footer>
-
-<script>
-(function(){
-  var btn = document.querySelector('.back-to-top');
-  if(!btn) return;
-  window.addEventListener('scroll', function(){
-    btn.style.opacity = window.scrollY > 400 ? '1' : '0';
-    btn.style.pointerEvents = window.scrollY > 400 ? 'auto' : 'none';
-  }, {passive:true});
-  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
-})();
-</script>
 
 {% schema %}
 {

@@ -1,0 +1,67 @@
+{% comment %}
+  Language & Currency Switcher Snippet
+  Usage: {% render 'lang-currency-switcher', position: 'header' %}
+{% endcomment %}
+
+{%- assign current_locale = request.locale -%}
+
+<div class="lc-switcher" data-lc-position="{{ position }}">
+
+  {%- comment %} ===== CURRENCY SWITCHER ===== {% endcomment -%}
+  {%- if localization.available_countries.size > 1 -%}
+    {%- form 'localization', id: 'CurrencyForm', class: 'lc-form' -%}
+      <div class="lc-dropdown" id="CurrencyDropdown">
+        <button type="button" class="lc-trigger" aria-expanded="false" aria-controls="CurrencyList" id="CurrencyTrigger">
+          <span class="lc-trigger__icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </span>
+          <span class="lc-trigger__label">{{ localization.country.currency.iso_code }}</span>
+          <svg class="lc-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lc-list" id="CurrencyList" role="listbox" aria-label="Select currency">
+          {%- for country in localization.available_countries -%}
+            <li role="option" aria-selected="{{ country.iso_code == localization.country.iso_code }}">
+              <button type="submit" name="country_code" value="{{ country.iso_code }}" class="lc-option{% if country.iso_code == localization.country.iso_code %} selected{% endif %}">
+                <span class="lc-option__flag">{{ country.currency.symbol }}</span>
+                <span class="lc-option__name">{{ country.name }}</span>
+                <span class="lc-option__code">{{ country.currency.iso_code }}</span>
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+
+  {%- comment %} ===== LANGUAGE SWITCHER ===== {% endcomment -%}
+  {%- if localization.available_languages.size > 1 -%}
+    {%- form 'localization', id: 'LangForm', class: 'lc-form' -%}
+      <div class="lc-dropdown" id="LangDropdown">
+        <button type="button" class="lc-trigger" aria-expanded="false" aria-controls="LangList" id="LangTrigger">
+          <span class="lc-trigger__icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/>
+              <path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/>
+            </svg>
+          </span>
+          <span class="lc-trigger__label">{{ current_locale.iso_code | upcase | slice: 0, 2 }}</span>
+          <svg class="lc-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="lc-list" id="LangList" role="listbox" aria-label="Select language">
+          {%- for language in localization.available_languages -%}
+            <li role="option" aria-selected="{{ language.iso_code == current_locale.iso_code }}">
+              <button type="submit" name="locale_code" value="{{ language.iso_code }}" class="lc-option{% if language.iso_code == current_locale.iso_code %} selected{% endif %}">
+                <span class="lc-option__name">{{ language.endonym_name | capitalize }}</span>
+                <span class="lc-option__code">{{ language.iso_code | upcase }}</span>
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+
+</div>

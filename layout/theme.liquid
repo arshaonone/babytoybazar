@@ -28,6 +28,11 @@
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
+    <style>
+      /* Scroll Progress Bar */
+      .scroll-progress-wrap{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;background:transparent;}
+      .scroll-progress{height:100%;width:0;background:linear-gradient(90deg,#FFD700,#FF8C00);transition:width 0.1s linear;}
+    </style>
     <script>
       window.BTBConfig = {
         routes: {
@@ -40,21 +45,32 @@
         money_format: {{ shop.money_format | json }},
         currency: {{ shop.currency | json }},
         cart_item_count: {{ cart.item_count }},
-        shop_name: {{ shop.name | json }}
+        shop_name: {{ shop.name | json }},
+        shop_url: {{ shop.url | json }},
+        locale: {{ request.locale.iso_code | json }}
       };
     </script>
   </head>
 
   <body class="template-{{ template.name | handle }}{% if customer %} customer-logged-in{% endif %}">
 
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-wrap" aria-hidden="true"><div class="scroll-progress" id="ScrollProgress"></div></div>
+
     <a class="skip-to-content" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
 
     {% section 'announcement-bar' %}
     {% section 'header' %}
 
+    <!-- Trust Badges Strip -->
+    {% render 'trust-badges' %}
+
     <main id="MainContent" class="main-content" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
+
+    <!-- Recently Viewed Products -->
+    {% section 'recently-viewed' %}
 
     {% section 'footer' %}
 
@@ -180,6 +196,11 @@
         </button>
       </div>
     </div>
+
+    <!-- ===================== BACK TO TOP ===================== -->
+    <button class="back-to-top" aria-label="Back to top" id="BackToTop" title="Back to top">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
 
     <!-- ===================== TOAST NOTIFICATION ===================== -->
     <div class="toast" id="ToastMsg" role="status" aria-live="polite">

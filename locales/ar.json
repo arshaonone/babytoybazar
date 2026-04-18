@@ -1,0 +1,98 @@
+{
+  "accessibility": {
+    "skip_to_text": "انتقل إلى المحتوى",
+    "close_modal": "إغلاق",
+    "open_menu": "فتح القائمة",
+    "close_menu": "إغلاق القائمة",
+    "navigation": "التنقل"
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلة التسوق فارغة",
+    "item_count": {
+      "one": "منتج واحد",
+      "other": "{{ count }} منتجات"
+    },
+    "subtotal": "المجموع الفرعي",
+    "checkout": "إتمام الشراء",
+    "view_cart": "عرض السلة الكاملة",
+    "add": "أضف إلى السلة",
+    "added": "تمت الإضافة!",
+    "remove": "إزالة",
+    "update": "تحديث",
+    "note": "ملاحظة الطلب"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "أضف إلى السلة",
+      "sold_out": "نفذ من المخزون",
+      "unavailable": "غير متوفر",
+      "on_sale": "تخفيض",
+      "regular_price": "السعر العادي",
+      "sale_price": "سعر التخفيض",
+      "quick_view": "عرض سريع",
+      "wishlist": "أضف إلى المفضلة",
+      "compare": "قارن",
+      "in_stock": "متوفر",
+      "out_of_stock": "غير متوفر"
+    },
+    "general": {
+      "view_all": "عرض الكل",
+      "no_products": "لم يتم العثور على منتجات"
+    }
+  },
+  "collections": {
+    "all": "جميع المنتجات",
+    "sort_by_label": "ترتيب حسب",
+    "sort_options": {
+      "manual": "مميز",
+      "best-selling": "الأكثر مبيعاً",
+      "title-ascending": "أ-ي",
+      "title-descending": "ي-أ",
+      "price-ascending": "السعر: من الأقل",
+      "price-descending": "السعر: من الأعلى",
+      "created-ascending": "الأقدم",
+      "created-descending": "الأحدث"
+    }
+  },
+  "general": {
+    "search": {
+      "placeholder": "ابحث عن الألعاب والهدايا...",
+      "submit": "بحث",
+      "no_results": "لا توجد نتائج",
+      "results_for": "نتائج"
+    },
+    "newsletter": {
+      "placeholder": "بريدك الإلكتروني",
+      "submit": "اشترك",
+      "success": "شكراً للاشتراك!",
+      "error": "يرجى إدخال بريد إلكتروني صحيح"
+    },
+    "currency": "العملة",
+    "language": "اللغة"
+  },
+  "customer": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "forgot_password": "نسيت كلمة المرور؟"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "submit": "تسجيل"
+    },
+    "account": {
+      "title": "حسابي",
+      "orders": "الطلبات",
+      "details": "تفاصيل الحساب",
+      "logout": "تسجيل الخروج"
+    }
+  },
+  "404": {
+    "title": "الصفحة غير موجودة",
+    "subtext": "لم نتمكن من العثور على الصفحة المطلوبة.",
+    "link": "الصفحة الرئيسية"
+  }
+}

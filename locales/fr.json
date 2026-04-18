@@ -1,0 +1,98 @@
+{
+  "accessibility": {
+    "skip_to_text": "Aller au contenu",
+    "close_modal": "Fermer",
+    "open_menu": "Ouvrir le menu",
+    "close_menu": "Fermer le menu",
+    "navigation": "Navigation"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "item_count": {
+      "one": "1 article",
+      "other": "{{ count }} articles"
+    },
+    "subtotal": "Sous-total",
+    "checkout": "Commander",
+    "view_cart": "Voir le panier",
+    "add": "Ajouter au panier",
+    "added": "Ajouté!",
+    "remove": "Supprimer",
+    "update": "Mettre à jour",
+    "note": "Note de commande"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "unavailable": "Indisponible",
+      "on_sale": "Promo",
+      "regular_price": "Prix normal",
+      "sale_price": "Prix promo",
+      "quick_view": "Aperçu rapide",
+      "wishlist": "Ajouter aux favoris",
+      "compare": "Comparer",
+      "in_stock": "En stock",
+      "out_of_stock": "Hors stock"
+    },
+    "general": {
+      "view_all": "Voir tout",
+      "no_products": "Aucun produit trouvé"
+    }
+  },
+  "collections": {
+    "all": "Tous les produits",
+    "sort_by_label": "Trier par",
+    "sort_options": {
+      "manual": "En vedette",
+      "best-selling": "Meilleures ventes",
+      "title-ascending": "A-Z",
+      "title-descending": "Z-A",
+      "price-ascending": "Prix croissant",
+      "price-descending": "Prix décroissant",
+      "created-ascending": "Plus ancien",
+      "created-descending": "Plus récent"
+    }
+  },
+  "general": {
+    "search": {
+      "placeholder": "Rechercher jouets, jeux, cadeaux...",
+      "submit": "Rechercher",
+      "no_results": "Aucun résultat pour",
+      "results_for": "Résultats pour"
+    },
+    "newsletter": {
+      "placeholder": "Votre adresse e-mail",
+      "submit": "S'abonner",
+      "success": "Merci de vous être abonné!",
+      "error": "Veuillez entrer un e-mail valide"
+    },
+    "currency": "Devise",
+    "language": "Langue"
+  },
+  "customer": {
+    "login": {
+      "title": "Connexion",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "forgot_password": "Mot de passe oublié?"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "submit": "S'inscrire"
+    },
+    "account": {
+      "title": "Mon compte",
+      "orders": "Commandes",
+      "details": "Détails du compte",
+      "logout": "Se déconnecter"
+    }
+  },
+  "404": {
+    "title": "Page introuvable",
+    "subtext": "Nous n'avons pas trouvé la page recherchée.",
+    "link": "page d'accueil"
+  }
+}

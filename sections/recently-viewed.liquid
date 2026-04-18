@@ -1,0 +1,79 @@
+{% comment %} Recently Viewed Products Section {% endcomment %}
+
+<section class="recently-viewed-section" id="RecentlyViewedSection" style="display:none" aria-label="Recently Viewed Products">
+  <div class="container">
+    <div class="products-header">
+      <div>
+        <h2 class="section-title" style="text-align:left">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;margin-right:0.4rem"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Recently Viewed
+        </h2>
+        <p style="color:var(--color-text-secondary);font-size:0.9rem;margin-top:0.25rem">Products you've looked at recently</p>
+      </div>
+      <button class="btn btn-outline btn-sm" id="ClearRecentBtn" aria-label="Clear recently viewed products">Clear All</button>
+    </div>
+    <div class="products-grid" id="RecentlyViewedGrid"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var RV_KEY = 'btb_recently_viewed';
+  var section = document.getElementById('RecentlyViewedSection');
+  var grid = document.getElementById('RecentlyViewedGrid');
+  var clearBtn = document.getElementById('ClearRecentBtn');
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(RV_KEY)) || []; }catch(e){ return []; } }
+  function save(items){ localStorage.setItem(RV_KEY, JSON.stringify(items)); }
+
+  /* Track current product page */
+  var meta = document.querySelector('meta[name="btb-product"]');
+  if(meta){
+    var data = {};
+    try{ data = JSON.parse(meta.content); }catch(e){}
+    if(data.id){
+      var items = load();
+      items = items.filter(function(i){ return i.id !== data.id; });
+      items.unshift(data);
+      if(items.length > 8) items = items.slice(0,8);
+      save(items);
+    }
+  }
+
+  /* Render on non-product pages */
+  if(!meta && grid){
+    var items = load();
+    if(items.length > 1){
+      section.style.display = '';
+      grid.innerHTML = items.slice(0,4).map(function(p){
+        return '<a href="'+p.url+'" class="rv-card" aria-label="'+p.title+'">'
+          +'<div class="rv-card__img"><img src="'+p.image+'" alt="'+p.title+'" loading="lazy" width="200" height="200"></div>'
+          +'<div class="rv-card__info">'
+          +'<p class="rv-card__name">'+p.title+'</p>'
+          +'<p class="rv-card__price">'+p.price+'</p>'
+          +'</div></a>';
+      }).join('');
+    }
+  }
+
+  if(clearBtn){
+    clearBtn.addEventListener('click', function(){
+      save([]);
+      if(section) section.style.display = 'none';
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "tag": "section",
+  "class": "recently-viewed-wrap",
+  "presets": [
+    {
+      "name": "Recently Viewed Products"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,98 @@
+{
+  "accessibility": {
+    "skip_to_text": "বিষয়বস্তুতে যান",
+    "close_modal": "বন্ধ করুন",
+    "open_menu": "মেনু খুলুন",
+    "close_menu": "মেনু বন্ধ করুন",
+    "navigation": "নেভিগেশন"
+  },
+  "cart": {
+    "title": "শপিং কার্ট",
+    "empty": "আপনার কার্ট খালি",
+    "item_count": {
+      "one": "১টি পণ্য",
+      "other": "{{ count }}টি পণ্য"
+    },
+    "subtotal": "সাবটোটাল",
+    "checkout": "চেকআউট করুন",
+    "view_cart": "পুরো কার্ট দেখুন",
+    "add": "কার্টে যোগ করুন",
+    "added": "যোগ হয়েছে!",
+    "remove": "সরান",
+    "update": "আপডেট করুন",
+    "note": "অর্ডার নোট"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "কার্টে যোগ করুন",
+      "sold_out": "বিক্রি শেষ",
+      "unavailable": "পাওয়া যাচ্ছে না",
+      "on_sale": "সেল",
+      "regular_price": "নিয়মিত মূল্য",
+      "sale_price": "সেল মূল্য",
+      "quick_view": "দ্রুত দেখুন",
+      "wishlist": "পছন্দের তালিকায় যোগ করুন",
+      "compare": "তুলনা করুন",
+      "in_stock": "স্টকে আছে",
+      "out_of_stock": "স্টকে নেই"
+    },
+    "general": {
+      "view_all": "সব দেখুন",
+      "no_products": "কোনো পণ্য পাওয়া যায়নি"
+    }
+  },
+  "collections": {
+    "all": "সব পণ্য",
+    "sort_by_label": "সাজান",
+    "sort_options": {
+      "manual": "বৈশিষ্ট্যযুক্ত",
+      "best-selling": "সেরা বিক্রয়",
+      "title-ascending": "A-Z",
+      "title-descending": "Z-A",
+      "price-ascending": "কম-বেশি",
+      "price-descending": "বেশি-কম",
+      "created-ascending": "পুরনো",
+      "created-descending": "নতুন"
+    }
+  },
+  "general": {
+    "search": {
+      "placeholder": "খেলনা, গেমস, উপহার খুঁজুন...",
+      "submit": "খুঁজুন",
+      "no_results": "কোনো ফলাফল পাওয়া যায়নি",
+      "results_for": "ফলাফল"
+    },
+    "newsletter": {
+      "placeholder": "আপনার ইমেইল ঠিকানা",
+      "submit": "সদস্যতা নিন",
+      "success": "সাবস্ক্রাইব করার জন্য ধন্যবাদ!",
+      "error": "একটি বৈধ ইমেইল দিন"
+    },
+    "currency": "মুদ্রা",
+    "language": "ভাষা"
+  },
+  "customer": {
+    "login": {
+      "title": "লগইন",
+      "email": "ইমেইল",
+      "password": "পাসওয়ার্ড",
+      "submit": "সাইন ইন করুন",
+      "forgot_password": "পাসওয়ার্ড ভুলে গেছেন?"
+    },
+    "register": {
+      "title": "অ্যাকাউন্ট তৈরি করুন",
+      "submit": "নিবন্ধন করুন"
+    },
+    "account": {
+      "title": "আমার অ্যাকাউন্ট",
+      "orders": "অর্ডার",
+      "details": "অ্যাকাউন্ট বিবরণ",
+      "logout": "সাইন আউট"
+    }
+  },
+  "404": {
+    "title": "পেজটি পাওয়া যায়নি",
+    "subtext": "আমরা আপনার খোঁজা পেজটি খুঁজে পাইনি।",
+    "link": "হোমপেজ"
+  }
+}
