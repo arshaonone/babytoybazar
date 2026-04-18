@@ -1,192 +1,130 @@
-{% if settings.show_announcement %}
-<div class="announcement-bar" role="banner" aria-label="Announcement">
-  <div class="container announcement-bar__inner">
+<div class="announcement-bar" role="region" aria-label="Announcement">
+  <div class="announcement-bar__inner">
 
-    <!-- Left: contact info -->
-    <div class="announcement-bar__left">
-      {% if settings.announcement_email != blank %}
-        <a class="announcement-bar__link" href="mailto:{{ settings.announcement_email }}" aria-label="Email us at {{ settings.announcement_email }}">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          <span>{{ settings.announcement_email }}</span>
-        </a>
-      {% endif %}
-
-      {% if settings.announcement_email != blank and settings.announcement_phone != blank %}
-        <div class="announce-sep" aria-hidden="true"></div>
-      {% endif %}
-
-      {% if settings.announcement_phone != blank %}
-        <a class="announcement-bar__link" href="tel:{{ settings.announcement_phone | remove: ' ' | remove: '-' }}" aria-label="Call us at {{ settings.announcement_phone }}">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.15 3.38 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-          </svg>
-          <span>{{ settings.announcement_phone }}</span>
-        </a>
-      {% endif %}
+    <div class="announcement-bar__messages">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'message' -%}
+          <span class="announce-msg">{{ block.settings.text }}</span>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
 
-    <!-- Center: rotating messages ticker -->
-    <div class="announcement-bar__center" aria-live="polite">
-      <div class="announce-messages" id="AnnounceMessages">
-        <span class="announce-msg active">{{ settings.announcement_text }}</span>
-        {% if settings.announcement_text_2 != blank %}
-          <span class="announce-msg">{{ settings.announcement_text_2 }}</span>
-        {% endif %}
-        {% if settings.announcement_text_3 != blank %}
-          <span class="announce-msg">{{ settings.announcement_text_3 }}</span>
-        {% endif %}
-      </div>
-    </div>
-
-    <!-- Right: tracking + language/currency -->
     <div class="announcement-bar__right">
-      <a href="{{ routes.root_url }}pages/order-tracking" class="announcement-bar__link">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-          <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-        </svg>
-        Track Order
-      </a>
+      {%- if section.settings.show_track_order -%}
+        <a href="{{ section.settings.track_order_url | default: '/pages/track-order' }}" style="font-size:0.78rem;font-weight:700;color:#fff;text-decoration:none;opacity:0.9">
+          📦 Track Order
+        </a>
+      {%- endif -%}
 
-      <div class="announce-sep" aria-hidden="true"></div>
-
-      <!-- Currency Switcher (Shopify Markets) -->
-      {%- form 'localization', id: 'AnnounceCurrencyForm' -%}
-        <div class="announce-select-wrap" id="AnnounceCurrencyWrap">
-          <button type="button" class="announcement-bar__link" id="AnnounceCurrencyBtn" aria-expanded="false" aria-haspopup="listbox">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10 15 15 0 014-10z"/></svg>
-            <span id="AnnounceCurrencyLabel">{{ localization.country.currency.iso_code }}</span>
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      {%- if localization.available_currencies.size > 1 -%}
+        <div class="announce-dropdown-wrap">
+          <button class="announce-lc-btn" id="AnnCurrBtn" aria-expanded="false" aria-label="Select currency">
+            {{ cart.currency.iso_code }}
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <ul class="announce-dropdown" id="AnnounceCurrencyList" role="listbox" aria-label="Select currency">
-            {%- for country in localization.available_countries -%}
-              <li role="option">
-                <button type="submit" name="country_code" value="{{ country.iso_code }}" class="announce-dropdown__item{% if country.iso_code == localization.country.iso_code %} selected{% endif %}">
-                  {{ country.currency.symbol }} {{ country.currency.iso_code }} — {{ country.name }}
+          <div class="announce-dropdown" id="AnnCurrDrop">
+            {%- form 'localization', id: 'AnnCurrencyForm' -%}
+              <input type="hidden" name="locale_code" value="{{ request.locale.iso_code }}">
+              {%- for currency in localization.available_currencies -%}
+                <button type="submit" name="currency_code" value="{{ currency.iso_code }}"
+                  class="announce-dropdown__item{% if currency.iso_code == cart.currency.iso_code %} selected{% endif %}">
+                  {{ currency.iso_code }} – {{ currency.symbol }}
                 </button>
-              </li>
-            {%- endfor -%}
-          </ul>
+              {%- endfor -%}
+            {%- endform -%}
+          </div>
         </div>
-      {%- endform -%}
+      {%- endif -%}
 
-      <div class="announce-sep" aria-hidden="true"></div>
-
-      <!-- Language Switcher (Shopify Markets) -->
-      {%- form 'localization', id: 'AnnounceLangForm' -%}
-        <div class="announce-select-wrap" id="AnnounceLangWrap">
-          <button type="button" class="announcement-bar__link" id="AnnounceLangBtn" aria-expanded="false" aria-haspopup="listbox">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
-            <span id="AnnounceLangLabel">{{ request.locale.iso_code | upcase | slice: 0, 2 }}</span>
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      {%- if localization.available_languages.size > 1 -%}
+        <div class="announce-dropdown-wrap">
+          <button class="announce-lc-btn" id="AnnLangBtn" aria-expanded="false" aria-label="Select language">
+            {{ request.locale.iso_code | upcase }}
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <ul class="announce-dropdown" id="AnnounceLangList" role="listbox" aria-label="Select language">
-            {%- for language in localization.available_languages -%}
-              <li role="option">
-                <button type="submit" name="locale_code" value="{{ language.iso_code }}" class="announce-dropdown__item{% if language.iso_code == request.locale.iso_code %} selected{% endif %}">
-                  {{ language.endonym_name | capitalize }}
+          <div class="announce-dropdown" id="AnnLangDrop">
+            {%- form 'localization', id: 'AnnLangForm' -%}
+              <input type="hidden" name="currency_code" value="{{ cart.currency.iso_code }}">
+              {%- for language in localization.available_languages -%}
+                <button type="submit" name="locale_code" value="{{ language.iso_code }}"
+                  class="announce-dropdown__item{% if language.iso_code == request.locale.iso_code %} selected{% endif %}">
+                  {{ language.endonym_name }}
                 </button>
-              </li>
-            {%- endfor -%}
-          </ul>
+              {%- endfor -%}
+            {%- endform -%}
+          </div>
         </div>
-      {%- endform -%}
+      {%- endif -%}
     </div>
 
   </div>
 </div>
-{% endif %}
 
 <script>
 (function(){
-  /* Rotating announcement messages */
-  var msgs = document.querySelectorAll('.announce-msg');
-  if(msgs.length > 1){
-    var current = 0;
-    setInterval(function(){
-      msgs[current].classList.remove('active');
-      current = (current + 1) % msgs.length;
-      msgs[current].classList.add('active');
-    }, 4000);
-  }
-
-  /* Announcement dropdowns */
-  function setupAnnounceDropdown(btnId, listId, wrapId){
+  function initDropdown(btnId, dropId) {
     var btn = document.getElementById(btnId);
-    var list = document.getElementById(listId);
-    if(!btn || !list) return;
-    btn.addEventListener('click', function(e){
+    var drop = document.getElementById(dropId);
+    if (!btn || !drop) return;
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
-      var open = list.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    document.addEventListener('click', function(){
-      list.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+      var isOpen = drop.classList.contains('open');
+      document.querySelectorAll('.announce-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+      document.querySelectorAll('.announce-lc-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+      if (!isOpen) { drop.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
     });
   }
-  setupAnnounceDropdown('AnnounceCurrencyBtn', 'AnnounceCurrencyList', 'AnnounceCurrencyWrap');
-  setupAnnounceDropdown('AnnounceLangBtn', 'AnnounceLangList', 'AnnounceLangWrap');
+  initDropdown('AnnCurrBtn','AnnCurrDrop');
+  initDropdown('AnnLangBtn','AnnLangDrop');
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.announce-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+    document.querySelectorAll('.announce-lc-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  });
 })();
 </script>
 
 {% schema %}
 {
-  "name": "Announcement Bar",
-  "tag": "section",
-  "class": "announcement-bar-section",
+  "name": "Announcement bar",
+  "class": "announcement-section",
   "settings": [
     {
       "type": "checkbox",
-      "id": "show_announcement",
-      "label": "Show Announcement Bar",
+      "id": "show_track_order",
+      "label": "Show Track Order link",
       "default": true
     },
     {
-      "type": "header",
-      "content": "Announcement Messages (rotate every 4s)"
-    },
+      "type": "url",
+      "id": "track_order_url",
+      "label": "Track Order URL"
+    }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Message 1",
-      "default": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!"
-    },
-    {
-      "type": "text",
-      "id": "announcement_text_2",
-      "label": "Message 2 (optional)",
-      "default": "🚚 Fast Delivery Worldwide · 📦 Easy 30-Day Returns · 🔒 Secure Checkout"
-    },
-    {
-      "type": "text",
-      "id": "announcement_text_3",
-      "label": "Message 3 (optional)",
-      "default": "⭐ Trusted by 50,000+ Happy Parents · 🧸 100% Safe & Certified Toys"
-    },
-    {
-      "type": "header",
-      "content": "Contact Info"
-    },
-    {
-      "type": "text",
-      "id": "announcement_email",
-      "label": "Email Address",
-      "default": "info@babytoysbazar.com"
-    },
-    {
-      "type": "text",
-      "id": "announcement_phone",
-      "label": "Phone Number",
-      "default": "+012-456-789"
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Message",
+          "default": "🎁 Free Shipping on orders over $50 🎁"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Announcement Bar"
+      "name": "Announcement bar",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "text": "🎁 Free Shipping on orders over $50 🎁"
+          }
+        }
+      ]
     }
   ]
 }
