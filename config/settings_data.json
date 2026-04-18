@@ -14,7 +14,7 @@
     "type_base_size": "16px",
     "logo_text": "BabyToyBazar",
     "show_announcement": true,
-    "announcement_text": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!",
+    "announcement_text": "🎉 Get up to 80% off using BABY2026 coupon code! Free shipping on orders over $50!",
     "announcement_email": "info@babytoysbazar.com",
     "announcement_phone": "+012-456-789",
     "show_free_shipping": true,
@@ -42,7 +42,7 @@
         "type": "announcement-bar",
         "settings": {
           "show_announcement": true,
-          "announcement_text": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!",
+          "announcement_text": "🎉 Get up to 80% off using BABY2026 coupon code! Free shipping on orders over $50!",
           "announcement_email": "info@babytoysbazar.com",
           "announcement_phone": "+012-456-789"
         }
