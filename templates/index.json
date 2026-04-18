@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-slider": {
@@ -9,6 +18,7 @@
             "badge": "New Collection 2024",
             "title": "Create Happiness",
             "subtitle": "With Toys",
+            "description": "",
             "button_text": "Shopping Now",
             "button_url": "/collections/all",
             "secondary_button_text": "View Collection",
@@ -21,6 +31,7 @@
             "badge": "Up to 80% Off",
             "title": "Best Toys For",
             "subtitle": "Your Little Ones",
+            "description": "",
             "button_text": "Shop Sale",
             "button_url": "/collections/sale",
             "secondary_button_text": "Learn More",
@@ -33,6 +44,7 @@
             "badge": "Free Shipping Available",
             "title": "Educational &",
             "subtitle": "Fun Toys",
+            "description": "",
             "button_text": "Explore Now",
             "button_url": "/collections/educational",
             "secondary_button_text": "Gift Ideas",
@@ -40,7 +52,11 @@
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
       "settings": {
         "autoplay_speed": 5
       }
@@ -48,18 +64,109 @@
     "shop-by-category": {
       "type": "shop-by-category",
       "blocks": {
-        "cat-1":  { "type": "category", "settings": { "title": "Soft Dolls",    "icon": "soft-dolls",  "color_class": "cat-purple", "url": "/collections/soft-dolls" } },
-        "cat-2":  { "type": "category", "settings": { "title": "Puzzle Toys",   "icon": "puzzle",      "color_class": "cat-green",  "url": "/collections/puzzle-toys" } },
-        "cat-3":  { "type": "category", "settings": { "title": "Toys Train",    "icon": "train",       "color_class": "cat-blue",   "url": "/collections/toys-train" } },
-        "cat-4":  { "type": "category", "settings": { "title": "Kids Gift Box", "icon": "gift",        "color_class": "cat-cyan",   "url": "/collections/kids-gift-box" } },
-        "cat-5":  { "type": "category", "settings": { "title": "City Toys",     "icon": "city",        "color_class": "cat-orange", "url": "/collections/city-toys" } },
-        "cat-6":  { "type": "category", "settings": { "title": "Pet Toys",      "icon": "pet",         "color_class": "cat-pink",   "url": "/collections/pet-toys" } },
-        "cat-7":  { "type": "category", "settings": { "title": "Educational",   "icon": "educational", "color_class": "cat-indigo", "url": "/collections/educational" } },
-        "cat-8":  { "type": "category", "settings": { "title": "Art & Craft",   "icon": "art",         "color_class": "cat-teal",   "url": "/collections/art-craft" } },
-        "cat-9":  { "type": "category", "settings": { "title": "Vehicles",      "icon": "vehicle",     "color_class": "cat-red",    "url": "/collections/vehicles" } },
-        "cat-10": { "type": "category", "settings": { "title": "Outdoor Toys",  "icon": "outdoor",     "color_class": "cat-lime",   "url": "/collections/outdoor-toys" } }
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "Soft Dolls",
+            "url": "/collections/soft-dolls",
+            "icon": "soft-dolls",
+            "color_class": "cat-purple"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "Puzzle Toys",
+            "url": "/collections/puzzle-toys",
+            "icon": "puzzle",
+            "color_class": "cat-green"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "title": "Toys Train",
+            "url": "/collections/toys-train",
+            "icon": "train",
+            "color_class": "cat-blue"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "title": "Kids Gift Box",
+            "url": "/collections/kids-gift-box",
+            "icon": "gift",
+            "color_class": "cat-cyan"
+          }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": {
+            "title": "City Toys",
+            "url": "/collections/city-toys",
+            "icon": "city",
+            "color_class": "cat-orange"
+          }
+        },
+        "cat-6": {
+          "type": "category",
+          "settings": {
+            "title": "Pet Toys",
+            "url": "/collections/pet-toys",
+            "icon": "pet",
+            "color_class": "cat-pink"
+          }
+        },
+        "cat-7": {
+          "type": "category",
+          "settings": {
+            "title": "Educational",
+            "url": "/collections/educational",
+            "icon": "educational",
+            "color_class": "cat-indigo"
+          }
+        },
+        "cat-8": {
+          "type": "category",
+          "settings": {
+            "title": "Art & Craft",
+            "url": "/collections/art-craft",
+            "icon": "art",
+            "color_class": "cat-teal"
+          }
+        },
+        "cat-9": {
+          "type": "category",
+          "settings": {
+            "title": "Vehicles",
+            "url": "/collections/vehicles",
+            "icon": "vehicle",
+            "color_class": "cat-red"
+          }
+        },
+        "cat-10": {
+          "type": "category",
+          "settings": {
+            "title": "Outdoor Toys",
+            "url": "/collections/outdoor-toys",
+            "icon": "outdoor",
+            "color_class": "cat-lime"
+          }
+        }
       },
-      "block_order": ["cat-1","cat-2","cat-3","cat-4","cat-5","cat-6","cat-7","cat-8","cat-9","cat-10"],
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4",
+        "cat-5",
+        "cat-6",
+        "cat-7",
+        "cat-8",
+        "cat-9",
+        "cat-10"
+      ],
       "settings": {
         "title": "Shop By Categories",
         "subtitle": "Find what your little one loves"
@@ -68,8 +175,9 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "title": "Featured Products",
+        "title": "",
         "subtitle": "Hand-picked toys loved by parents and kids",
+        "collection": "frontpage",
         "products_to_show": 8,
         "bg_white": false
       }
@@ -90,12 +198,61 @@
     "promo-banners": {
       "type": "promo-banners",
       "blocks": {
-        "promo-1": { "type": "banner", "settings": { "emoji": "🧸", "tag": "Hot Deal", "title": "Baby Plush Toys", "subtitle": "Up to 50% off all plush toys this week", "button_text": "Shop Now", "theme": "yellow" } },
-        "promo-2": { "type": "banner", "settings": { "emoji": "🎮", "tag": "New Arrivals", "title": "Educational Games", "subtitle": "Learn and play with premium toys", "button_text": "Explore", "theme": "blue" } },
-        "promo-3": { "type": "banner", "settings": { "emoji": "🎁", "tag": "Gift Ideas", "title": "Perfect Gift Sets", "subtitle": "Beautiful gift boxes for every age", "button_text": "Gift Now", "theme": "pink" } },
-        "promo-4": { "type": "banner", "settings": { "emoji": "🌿", "tag": "Eco Friendly", "title": "Wooden Toys", "subtitle": "Safe, natural and sustainable toys", "button_text": "Discover", "theme": "green" } }
+        "promo-1": {
+          "type": "banner",
+          "settings": {
+            "emoji": "🧸",
+            "tag": "Hot Deal",
+            "title": "Baby Plush Toys",
+            "subtitle": "Up to 50% off all plush toys this week",
+            "button_text": "Shop Now",
+            "url": "",
+            "theme": "yellow"
+          }
+        },
+        "promo-2": {
+          "type": "banner",
+          "settings": {
+            "emoji": "🎮",
+            "tag": "New Arrivals",
+            "title": "Educational Games",
+            "subtitle": "Learn and play with premium toys",
+            "button_text": "Explore",
+            "url": "",
+            "theme": "blue"
+          }
+        },
+        "promo-3": {
+          "type": "banner",
+          "settings": {
+            "emoji": "🎁",
+            "tag": "Gift Ideas",
+            "title": "Perfect Gift Sets",
+            "subtitle": "Beautiful gift boxes for every age",
+            "button_text": "Gift Now",
+            "url": "",
+            "theme": "pink"
+          }
+        },
+        "promo-4": {
+          "type": "banner",
+          "settings": {
+            "emoji": "🌿",
+            "tag": "Eco Friendly",
+            "title": "Wooden Toys",
+            "subtitle": "Safe, natural and sustainable toys",
+            "button_text": "Discover",
+            "url": "",
+            "theme": "green"
+          }
+        }
       },
-      "block_order": ["promo-1", "promo-2", "promo-3", "promo-4"],
+      "block_order": [
+        "promo-1",
+        "promo-2",
+        "promo-3",
+        "promo-4"
+      ],
       "settings": {
         "title": "Exclusive Deals",
         "subtitle": "Limited time offers just for you"
@@ -106,6 +263,9 @@
       "settings": {
         "title": "Popular Products",
         "subtitle": "Discover what parents and kids love most",
+        "best_sellers_collection": "",
+        "new_arrivals_collection": "",
+        "sale_collection": "",
         "products_to_show": 8
       }
     },

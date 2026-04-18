@@ -1,12 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
+    "primary_color": "#FFD700",
+    "accent_color": "#FF8C00",
+    "type_base_size": "16px",
+    "logo_text": "BabyToyBazar",
+    "show_announcement": true,
     "announcement_text": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!",
     "announcement_email": "info@babytoysbazar.com",
     "announcement_phone": "+012-456-789",
-    "show_announcement": true,
-    "logo_text": "BabyToyBazar",
-    "primary_color": "#FFD700",
-    "accent_color": "#FF8C00",
     "show_free_shipping": true,
     "free_shipping_text": "Free shipping now available",
     "usp_shipping_title": "Free Shipping",
@@ -24,10 +34,34 @@
     "footer_instagram": "https://instagram.com",
     "footer_twitter": "https://twitter.com",
     "footer_youtube": "https://youtube.com",
-    "footer_copyright": "© 2024 BabyToyBazar. All Rights Reserved.",
-    "type_base_size": "16px",
+    "footer_copyright": "© 2026 BabyToyBazar. All Rights Reserved.",
     "type_base_family": "Nunito, sans-serif",
-    "type_header_family": "Poppins, sans-serif"
+    "type_header_family": "Poppins, sans-serif",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "announcement_text": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!",
+          "announcement_email": "info@babytoysbazar.com",
+          "announcement_phone": "+012-456-789"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_text": "BabyToyBazar",
+          "logo_width": 160,
+          "show_free_shipping": true,
+          "free_shipping_text": "Free shipping now available"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
