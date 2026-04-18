@@ -50,12 +50,26 @@
             "secondary_button_text": "Gift Ideas",
             "secondary_button_url": "/collections/kids-gift-box"
           }
+        },
+        "slide_ggcLkJ": {
+          "type": "slide",
+          "settings": {
+            "badge": "New Collection 2024",
+            "title": "Create Happiness",
+            "subtitle": "With Toys",
+            "description": "",
+            "button_text": "Shopping Now",
+            "button_url": "",
+            "secondary_button_text": "View Collection",
+            "secondary_button_url": ""
+          }
         }
       },
       "block_order": [
         "slide-1",
         "slide-2",
-        "slide-3"
+        "slide-3",
+        "slide_ggcLkJ"
       ],
       "settings": {
         "autoplay_speed": 5
