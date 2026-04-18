@@ -1,0 +1,98 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "close_modal": "Close",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "navigation": "Navigation"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "item_count": {
+      "one": "1 item",
+      "other": "{{ count }} items"
+    },
+    "subtotal": "Subtotal",
+    "checkout": "Checkout Now",
+    "view_cart": "View Full Cart",
+    "add": "Add to Cart",
+    "added": "Added!",
+    "remove": "Remove",
+    "update": "Update",
+    "note": "Order note"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "quick_view": "Quick View",
+      "wishlist": "Add to Wishlist",
+      "compare": "Compare",
+      "in_stock": "In Stock",
+      "out_of_stock": "Out of Stock"
+    },
+    "general": {
+      "view_all": "View All",
+      "no_products": "No products found"
+    }
+  },
+  "collections": {
+    "all": "All Products",
+    "sort_by_label": "Sort by",
+    "sort_options": {
+      "manual": "Featured",
+      "best-selling": "Best Selling",
+      "title-ascending": "A-Z",
+      "title-descending": "Z-A",
+      "price-ascending": "Low-High",
+      "price-descending": "High-Low",
+      "created-ascending": "Oldest",
+      "created-descending": "Newest"
+    }
+  },
+  "general": {
+    "search": {
+      "placeholder": "Search for toys, games, gifts...",
+      "submit": "Search",
+      "no_results": "No results for",
+      "results_for": "Results for"
+    },
+    "newsletter": {
+      "placeholder": "Your email address",
+      "submit": "Subscribe",
+      "success": "Thanks for subscribing!",
+      "error": "Please enter a valid email"
+    },
+    "currency": "Currency",
+    "language": "Language"
+  },
+  "customer": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgot_password": "Forgot Password?"
+    },
+    "register": {
+      "title": "Create Account",
+      "submit": "Register"
+    },
+    "account": {
+      "title": "My Account",
+      "orders": "Orders",
+      "details": "Account Details",
+      "logout": "Sign Out"
+    }
+  },
+  "404": {
+    "title": "Page Not Found",
+    "subtext": "We could not find the page you were looking for. Please check the URL or go back to the",
+    "link": "homepage"
+  }
+}

@@ -1,0 +1,291 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "BabyToyBazar",
+    "theme_version": "1.0.0",
+    "theme_author": "BabyToyBazar",
+    "theme_documentation_url": "https://babytoysbazar.com",
+    "theme_support_url": "https://babytoysbazar.com/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color",
+        "default": "#FFD700"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent Color",
+        "default": "#FF8C00"
+      },
+      {
+        "type": "color",
+        "id": "dark_color",
+        "label": "Dark Color",
+        "default": "#1a1a2e"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "select",
+        "id": "type_base_size",
+        "label": "Base Font Size",
+        "options": [
+          { "value": "14px", "label": "Small (14px)" },
+          { "value": "16px", "label": "Medium (16px)" },
+          { "value": "18px", "label": "Large (18px)" }
+        ],
+        "default": "16px"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Image"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo Text (if no image)",
+        "default": "BabyToyBazar"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo Width",
+        "default": 160
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "16x16px .ico or .png recommended"
+      }
+    ]
+  },
+  {
+    "name": "Announcement",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show Announcement Bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement Text",
+        "default": "🎉 Get up to 80% off using BABY2024 coupon code!"
+      },
+      {
+        "type": "text",
+        "id": "announcement_email",
+        "label": "Email Address",
+        "default": "info@babytoysbazar.com"
+      },
+      {
+        "type": "text",
+        "id": "announcement_phone",
+        "label": "Phone Number",
+        "default": "+012-456-789"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping",
+        "label": "Show Free Shipping Text in Nav",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_text",
+        "label": "Free Shipping Text",
+        "default": "Free shipping now available"
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": "Sticky Header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product Cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_quick_view",
+        "label": "Show Quick View Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_wishlist",
+        "label": "Show Wishlist Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_compare",
+        "label": "Show Compare Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_ratings",
+        "label": "Show Star Ratings",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "USP Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "usp_shipping_title",
+        "label": "Feature 1 Title",
+        "default": "Free Shipping"
+      },
+      {
+        "type": "text",
+        "id": "usp_shipping_text",
+        "label": "Feature 1 Text",
+        "default": "On orders over $50"
+      },
+      {
+        "type": "text",
+        "id": "usp_payment_title",
+        "label": "Feature 2 Title",
+        "default": "Secure Payment"
+      },
+      {
+        "type": "text",
+        "id": "usp_payment_text",
+        "label": "Feature 2 Text",
+        "default": "100% Protected"
+      },
+      {
+        "type": "text",
+        "id": "usp_return_title",
+        "label": "Feature 3 Title",
+        "default": "Easy Returns"
+      },
+      {
+        "type": "text",
+        "id": "usp_return_text",
+        "label": "Feature 3 Text",
+        "default": "30-Day Policy"
+      },
+      {
+        "type": "text",
+        "id": "usp_support_title",
+        "label": "Feature 4 Title",
+        "default": "24/7 Support"
+      },
+      {
+        "type": "text",
+        "id": "usp_support_text",
+        "label": "Feature 4 Text",
+        "default": "Always here to help"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter Title",
+        "default": "Stay Updated with BabyToyBazar"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_subtitle",
+        "label": "Newsletter Subtitle",
+        "default": "Subscribe for exclusive deals, new arrivals & parenting tips."
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "footer_about",
+        "label": "About Text",
+        "default": "BabyToyBazar is your one-stop destination for premium quality baby toys and educational gifts."
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "url",
+        "id": "footer_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "footer_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "footer_twitter",
+        "label": "Twitter/X URL"
+      },
+      {
+        "type": "url",
+        "id": "footer_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "footer_pinterest",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright",
+        "label": "Copyright Text",
+        "default": "© 2024 BabyToyBazar. All Rights Reserved."
+      }
+    ]
+  }
+]

@@ -1,0 +1,182 @@
+{%- assign product = product -%}
+{%- assign index = index | default: 1 -%}
+
+{%- if product != nil -%}
+  {%- assign product_title = product.title -%}
+  {%- assign product_url = product.url -%}
+  {%- assign product_price = product.price | money -%}
+  {%- assign product_compare_price = product.compare_at_price | money -%}
+  {%- assign product_image = product.featured_image -%}
+  {%- assign product_image_2 = product.images[1] -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  {%- assign variant_id = variant.id -%}
+  {%- assign product_handle = product.handle -%}
+  {%- assign on_sale = false -%}
+  {%- if product.compare_at_price > product.price -%}
+    {%- assign on_sale = true -%}
+    {%- assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+  {%- endif -%}
+  {%- assign is_new = false -%}
+  {%- assign days_old = product.created_at | date: '%s' | minus: 'now' | date: '%s' | abs | divided_by: 86400 -%}
+  {%- if days_old < 30 -%}{%- assign is_new = true -%}{%- endif -%}
+  {%- assign product_type = product.type -%}
+  {%- assign vendor = product.vendor -%}
+  {%- assign available = product.available -%}
+{%- else -%}
+  {%- assign demo_titles = "Rainbow Stacking Rings,Wooden Animal Puzzle,Musical Baby Piano,Pull Along Duck Toy,Soft Lion Plush Toy,STEM Building Blocks,Baby Activity Gym,Eco Play Dough Set" | split: ',' -%}
+  {%- assign demo_prices = "$24.99,$18.99,$34.99,$16.99,$22.99,$39.99,$44.99,$12.99" | split: ',' -%}
+  {%- assign demo_compare = "$34.99,$28.99,,,$32.99,$54.99,,," | split: ',' -%}
+  {%- assign idx = index | minus: 1 -%}
+  {%- assign product_title = demo_titles[idx] | default: "Baby Toy" -%}
+  {%- assign product_url = '/collections/all' -%}
+  {%- assign product_price = demo_prices[idx] | default: "$19.99" -%}
+  {%- assign product_compare_price = demo_compare[idx] -%}
+  {%- assign variant_id = 1 -%}
+  {%- assign product_handle = 'demo-product' -%}
+  {%- assign on_sale = index == 1 or index == 2 or index == 5 or index == 6 -%}
+  {%- assign save_pct = 30 -%}
+  {%- assign is_new = index == 3 or index == 4 -%}
+  {%- assign available = true -%}
+{%- endif -%}
+
+<article class="product-card" aria-label="{{ product_title }}">
+
+  <!-- Image area -->
+  <div class="product-card__img-wrap">
+    <a href="{{ product_url }}" tabindex="-1" aria-hidden="true">
+      {%- if product_image != blank -%}
+        <img src="{{ product_image | image_url: width: 480 }}"
+             srcset="{{ product_image | image_url: width: 240 }} 240w, {{ product_image | image_url: width: 480 }} 480w"
+             sizes="(max-width:480px) 50vw, 240px"
+             alt="{{ product_image.alt | default: product_title | escape }}"
+             class="product-card__img"
+             loading="lazy"
+             width="480" height="480">
+        {%- if product_image_2 != blank -%}
+          <img src="{{ product_image_2 | image_url: width: 480 }}"
+               alt="{{ product_title | escape }}"
+               class="product-card__img-alt"
+               loading="lazy"
+               width="480" height="480">
+        {%- endif -%}
+      {%- else -%}
+        <!-- Demo placeholder image with toy emoji -->
+        {%- assign demo_emojis = '🧸,🧩,🎮,🎁,🚂,🎨,🏆,🎯' | split: ',' -%}
+        {%- assign emoji = demo_emojis[forloop.index0 | modulo: 8] | default: '🧸' -%}
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#FFF9E0,#FFF0CC)" aria-hidden="true">{{ emoji }}</div>
+      {%- endif -%}
+    </a>
+
+    <!-- Badges -->
+    <div class="product-badges" aria-label="Product badges">
+      {%- if on_sale -%}
+        <span class="badge badge-sale" aria-label="On sale, {{ save_pct }}% off">-{{ save_pct }}%</span>
+      {%- endif -%}
+      {%- if is_new -%}
+        <span class="badge badge-new" aria-label="New arrival">New</span>
+      {%- endif -%}
+      {%- unless available -%}
+        <span class="badge" style="background:var(--color-text-light);color:#fff" aria-label="Sold out">Sold Out</span>
+      {%- endunless -%}
+    </div>
+
+    <!-- Quick action buttons -->
+    <div class="product-card__actions" aria-label="Product actions">
+      <!-- Wishlist -->
+      <button class="product-action-btn"
+              data-wishlist-toggle="{{ variant_id }}"
+              aria-label="Add {{ product_title }} to wishlist"
+              title="Add to Wishlist">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+
+      <!-- Quick View -->
+      {%- if product != nil -%}
+        <button class="product-action-btn"
+                data-quick-view="{{ product_handle }}"
+                aria-label="Quick view {{ product_title }}"
+                title="Quick View">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      <!-- Compare -->
+      <button class="product-action-btn"
+              data-compare="{{ variant_id }}"
+              aria-label="Compare {{ product_title }}"
+              title="Compare">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Card body -->
+  <div class="product-card__body">
+    {%- if vendor != blank -%}
+      <p class="product-card__category">{{ vendor }}</p>
+    {%- elsif product_type != blank -%}
+      <p class="product-card__category">{{ product_type }}</p>
+    {%- else -%}
+      <p class="product-card__category">BabyToyBazar</p>
+    {%- endif -%}
+
+    <a href="{{ product_url }}" class="product-card__name">{{ product_title }}</a>
+
+    <!-- Star Rating -->
+    {%- if settings.show_ratings -%}
+      {%- assign rating = 4 -%}
+      {%- assign review_count = 15 | plus: index | times: 3 -%}
+      <div class="product-rating" aria-label="{{ rating }} out of 5 stars, {{ review_count }} reviews">
+        <div class="stars" aria-hidden="true">
+          {%- for i in (1..5) -%}
+            <svg class="star-icon{% if i <= rating %} filled{% endif %}" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+              {%- if i <= rating -%}
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+              {%- else -%}
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              {%- endif -%}
+            </svg>
+          {%- endfor -%}
+        </div>
+        <span class="rating-count">({{ review_count }})</span>
+      </div>
+    {%- endif -%}
+
+    <!-- Price -->
+    <div class="product-card__price-row">
+      <span class="price-current">{{ product_price }}</span>
+      {%- if product_compare_price != blank and product_compare_price != '' -%}
+        <span class="price-original">{{ product_compare_price }}</span>
+        {%- if on_sale -%}
+          <span class="price-save">Save {{ save_pct }}%</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    <!-- Add to Cart -->
+    {%- if available -%}
+      <button class="product-card__atc"
+              data-add-to-cart="{{ variant_id }}"
+              aria-label="Add {{ product_title }} to cart"
+              id="atc-{{ variant_id }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        {{ 'cart.add' | t }}
+      </button>
+    {%- else -%}
+      <button class="product-card__atc" disabled aria-disabled="true" style="opacity:0.5;cursor:not-allowed">
+        {{ 'products.product.sold_out' | t }}
+      </button>
+    {%- endif -%}
+  </div>
+
+</article>

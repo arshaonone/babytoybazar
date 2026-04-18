@@ -1,0 +1,165 @@
+{%- assign bs_collection = collections[section.settings.best_sellers_collection] -%}
+{%- assign na_collection = collections[section.settings.new_arrivals_collection] -%}
+{%- assign sale_collection = collections[section.settings.sale_collection] -%}
+
+<section class="tabs-section" aria-labelledby="TabsTitle">
+  <div class="container">
+
+    <h2 class="section-title" id="TabsTitle">{{ section.settings.title }}</h2>
+    <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+
+    <!-- Tab buttons -->
+    <div class="tabs-header" role="tablist" aria-label="Product collection tabs">
+      <button class="tab-btn active"
+              role="tab"
+              data-tab="tab-best-sellers"
+              aria-selected="true"
+              aria-controls="tab-best-sellers"
+              id="tab-btn-best-sellers">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        Best Sellers
+      </button>
+      <button class="tab-btn"
+              role="tab"
+              data-tab="tab-new-arrivals"
+              aria-selected="false"
+              aria-controls="tab-new-arrivals"
+              id="tab-btn-new-arrivals">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        New Arrivals
+      </button>
+      <button class="tab-btn"
+              role="tab"
+              data-tab="tab-on-sale"
+              aria-selected="false"
+              aria-controls="tab-on-sale"
+              id="tab-btn-on-sale">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+          <line x1="7" y1="7" x2="7.01" y2="7"/>
+        </svg>
+        On Sale 🔥
+      </button>
+    </div>
+
+    <!-- Best Sellers Tab -->
+    <div class="tab-pane active" id="tab-best-sellers" role="tabpanel" aria-labelledby="tab-btn-best-sellers">
+      <div class="products-grid">
+        {%- if bs_collection != blank and bs_collection.products.size > 0 -%}
+          {%- for product in bs_collection.products limit: section.settings.products_to_show -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..8) -%}
+            {% render 'product-card', product: nil, index: i %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- New Arrivals Tab -->
+    <div class="tab-pane" id="tab-new-arrivals" role="tabpanel" aria-labelledby="tab-btn-new-arrivals">
+      <div class="products-grid">
+        {%- if na_collection != blank and na_collection.products.size > 0 -%}
+          {%- for product in na_collection.products limit: section.settings.products_to_show -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (2..9) -%}
+            {% render 'product-card', product: nil, index: i %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- On Sale Tab -->
+    <div class="tab-pane" id="tab-on-sale" role="tabpanel" aria-labelledby="tab-btn-on-sale">
+      <div class="products-grid">
+        {%- if sale_collection != blank and sale_collection.products.size > 0 -%}
+          {%- for product in sale_collection.products limit: section.settings.products_to_show -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (3..10) -%}
+            {% render 'product-card', product: nil, index: i %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanes = document.querySelectorAll('.tab-pane');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.dataset.tab;
+      tabBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      tabPanes.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+      var pane = document.getElementById(target);
+      if(pane) pane.classList.add('active');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Best Sellers Tabs",
+  "tag": "section",
+  "class": "best-sellers-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Popular Products"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Discover what parents and kids love most"
+    },
+    {
+      "type": "collection",
+      "id": "best_sellers_collection",
+      "label": "Best Sellers Collection"
+    },
+    {
+      "type": "collection",
+      "id": "new_arrivals_collection",
+      "label": "New Arrivals Collection"
+    },
+    {
+      "type": "collection",
+      "id": "sale_collection",
+      "label": "On Sale Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to Show per Tab",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers Tabs"
+    }
+  ]
+}
+{% endschema %}

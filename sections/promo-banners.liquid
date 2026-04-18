@@ -1,0 +1,186 @@
+<section class="promo-section" aria-label="Promotional offers">
+  <div class="container">
+
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+
+    <div class="promo-grid">
+
+      {% for block in section.blocks %}
+        {% if block.type == 'banner' %}
+          <a href="{{ block.settings.url | default: '/collections/all' }}"
+             class="promo-banner promo-{{ block.settings.theme }}"
+             {{ block.shopify_attributes }}
+             aria-label="{{ block.settings.title }} — {{ block.settings.subtitle }}">
+
+            <div class="promo-banner__bg" aria-hidden="true"></div>
+
+            <div class="promo-banner__content">
+              {% if block.settings.tag != blank %}
+                <span class="promo-banner__tag">{{ block.settings.tag }}</span>
+              {% endif %}
+              <h3 class="promo-banner__title">{{ block.settings.title }}</h3>
+              <p class="promo-banner__sub">{{ block.settings.subtitle }}</p>
+              {% if block.settings.button_text != blank %}
+                <span class="promo-btn">
+                  {{ block.settings.button_text }}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </span>
+              {% endif %}
+            </div>
+
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 280 }}"
+                   alt="{{ block.settings.title | escape }}"
+                   class="promo-banner__img"
+                   loading="lazy"
+                   width="200">
+            {% else %}
+              <!-- Decorative emoji placeholder -->
+              <div class="promo-banner__img" style="font-size:6rem;line-height:1;display:flex;align-items:center;justify-content:center;width:120px;height:120px" aria-hidden="true">
+                {{ block.settings.emoji | default: '🧸' }}
+              </div>
+            {% endif %}
+
+          </a>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo Banners",
+  "tag": "section",
+  "class": "promo-banners-section",
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Promo Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji (if no image)",
+          "default": "🧸"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag Label",
+          "default": "Special Offer"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Banner Title",
+          "default": "Kids Toys Sale"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Up to 50% off on selected toys"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Banner URL"
+        },
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Banner Color Theme",
+          "options": [
+            { "value": "yellow", "label": "Yellow / Gold" },
+            { "value": "blue",   "label": "Blue" },
+            { "value": "pink",   "label": "Pink / Rose" },
+            { "value": "green",  "label": "Green" }
+          ],
+          "default": "yellow"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Exclusive Deals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Limited time offers just for you"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banners",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "emoji": "🧸",
+            "tag": "Hot Deal",
+            "title": "Baby Plush Toys",
+            "subtitle": "Up to 50% off all plush toys this week",
+            "button_text": "Shop Now",
+            "theme": "yellow"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "emoji": "🎮",
+            "tag": "New Arrivals",
+            "title": "Educational Games",
+            "subtitle": "Learn and play with premium toys",
+            "button_text": "Explore",
+            "theme": "blue"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "emoji": "🎁",
+            "tag": "Gift Ideas",
+            "title": "Perfect Gift Sets",
+            "subtitle": "Beautiful gift boxes for every age",
+            "button_text": "Gift Now",
+            "theme": "pink"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "emoji": "🌿",
+            "tag": "Eco Friendly",
+            "title": "Wooden Toys",
+            "subtitle": "Safe, natural and sustainable toys",
+            "button_text": "Discover",
+            "theme": "green"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

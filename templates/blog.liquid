@@ -1,0 +1,65 @@
+<div class="blog-page">
+  <div class="container">
+
+    <header class="collection-header" style="text-align:center;padding:2rem 0">
+      <h1>{{ blog.title }}</h1>
+      {% if blog.articles_count > 0 %}
+        <p style="color:var(--color-text-secondary);margin-top:0.5rem">{{ blog.articles_count }} articles on parenting, play & joy</p>
+      {% endif %}
+    </header>
+
+    {% if blog.articles.size > 0 %}
+      <div class="blog-grid">
+        {% for article in blog.articles %}
+          <article class="blog-card">
+            <a href="{{ article.url }}" class="blog-card__img" aria-label="{{ article.title }}">
+              {% if article.image %}
+                <img src="{{ article.image | image_url: width: 600 }}"
+                     srcset="{{ article.image | image_url: width: 300 }} 300w, {{ article.image | image_url: width: 600 }} 600w"
+                     sizes="(max-width:768px) 100vw, 380px"
+                     alt="{{ article.image.alt | default: article.title | escape }}"
+                     width="600"
+                     loading="lazy">
+              {% else %}
+                <div style="width:100%;padding-top:56.25%;background:linear-gradient(135deg,#FFF9E0,#FFE082);position:relative">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem" aria-hidden="true">📝</div>
+                </div>
+              {% endif %}
+            </a>
+            <div class="blog-card__body">
+              {% if article.tags.size > 0 %}
+                <div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-bottom:0.5rem">
+                  {% for tag in article.tags limit: 2 %}
+                    <span style="background:var(--color-primary-light);color:var(--color-accent);padding:0.15rem 0.6rem;border-radius:50px;font-size:0.7rem;font-weight:700">{{ tag }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <p class="blog-card__date">
+                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %d, %Y' }}</time>
+                · by {{ article.author }}
+              </p>
+              <a href="{{ article.url }}" class="blog-card__title">{{ article.title }}</a>
+              <p class="blog-card__excerpt">{{ article.excerpt | default: article.content | strip_html | truncatewords: 22 }}</p>
+              <a href="{{ article.url }}" class="blog-card__read-more" aria-label="Read {{ article.title }}">
+                Read More
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div style="text-align:center;margin-top:3rem">{{ paginate | default_pagination }}</div>
+      {% endif %}
+
+    {% else %}
+      <div style="text-align:center;padding:4rem">
+        <div style="font-size:4rem;margin-bottom:1rem" aria-hidden="true">📝</div>
+        <h3>No articles yet</h3>
+        <p style="color:var(--color-text-secondary);margin-top:0.5rem">Check back soon for parenting tips and toy recommendations!</p>
+      </div>
+    {% endif %}
+  </div>
+</div>

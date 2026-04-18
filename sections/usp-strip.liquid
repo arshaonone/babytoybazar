@@ -1,0 +1,127 @@
+<section class="usp-strip" aria-label="Why shop with us">
+  <div class="container">
+    <div class="usp-grid">
+
+      <!-- Free Shipping -->
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <div class="usp-text">
+          <p class="usp-text__title">{{ section.settings.usp_shipping_title }}</p>
+          <p class="usp-text__sub">{{ section.settings.usp_shipping_text }}</p>
+        </div>
+      </div>
+
+      <!-- Secure Payment -->
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="usp-text">
+          <p class="usp-text__title">{{ section.settings.usp_payment_title }}</p>
+          <p class="usp-text__sub">{{ section.settings.usp_payment_text }}</p>
+        </div>
+      </div>
+
+      <!-- Easy Returns -->
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-3.36"/>
+          </svg>
+        </div>
+        <div class="usp-text">
+          <p class="usp-text__title">{{ section.settings.usp_return_title }}</p>
+          <p class="usp-text__sub">{{ section.settings.usp_return_text }}</p>
+        </div>
+      </div>
+
+      <!-- 24/7 Support -->
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.15 3.38 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <div class="usp-text">
+          <p class="usp-text__title">{{ section.settings.usp_support_title }}</p>
+          <p class="usp-text__sub">{{ section.settings.usp_support_text }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "USP Strip",
+  "tag": "section",
+  "class": "usp-strip-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "usp_shipping_title",
+      "label": "Feature 1 Title",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "usp_shipping_text",
+      "label": "Feature 1 Text",
+      "default": "On orders over $50"
+    },
+    {
+      "type": "text",
+      "id": "usp_payment_title",
+      "label": "Feature 2 Title",
+      "default": "Secure Payment"
+    },
+    {
+      "type": "text",
+      "id": "usp_payment_text",
+      "label": "Feature 2 Text",
+      "default": "100% Protected"
+    },
+    {
+      "type": "text",
+      "id": "usp_return_title",
+      "label": "Feature 3 Title",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "text",
+      "id": "usp_return_text",
+      "label": "Feature 3 Text",
+      "default": "30-Day Policy"
+    },
+    {
+      "type": "text",
+      "id": "usp_support_title",
+      "label": "Feature 4 Title",
+      "default": "24/7 Support"
+    },
+    {
+      "type": "text",
+      "id": "usp_support_text",
+      "label": "Feature 4 Text",
+      "default": "Always here to help"
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP Strip"
+    }
+  ]
+}
+{% endschema %}

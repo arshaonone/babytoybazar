@@ -1,0 +1,199 @@
+<footer class="site-footer" role="contentinfo" aria-label="Site footer">
+  <div class="container">
+
+    <!-- Main footer grid -->
+    <div class="footer-main">
+
+      <!-- About column -->
+      <div class="footer-about footer-col">
+        <div class="footer-about__logo">
+          <div class="footer-logo-icon" aria-hidden="true">🧸</div>
+          <div class="footer-logo-name">
+            {{ settings.logo_text | split: ' ' | first }}<span>{{ settings.logo_text | split: ' ' | last }}</span>
+          </div>
+        </div>
+        <p>{{ settings.footer_about }}</p>
+        <!-- Social icons -->
+        <div class="footer-social" aria-label="Social media links">
+          {% if settings.footer_facebook != blank %}
+            <a href="{{ settings.footer_facebook }}" class="social-btn fb" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {% endif %}
+          {% if settings.footer_instagram != blank %}
+            <a href="{{ settings.footer_instagram }}" class="social-btn ig" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {% endif %}
+          {% if settings.footer_twitter != blank %}
+            <a href="{{ settings.footer_twitter }}" class="social-btn tw" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </a>
+          {% endif %}
+          {% if settings.footer_youtube != blank %}
+            <a href="{{ settings.footer_youtube }}" class="social-btn yt" target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.41 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.34z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+            </a>
+          {% endif %}
+          {% if settings.footer_pinterest != blank %}
+            <a href="{{ settings.footer_pinterest }}" class="social-btn pin" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Pinterest">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <nav class="footer-col" aria-label="Quick links">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="{{ routes.root_url }}">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Home
+          </a></li>
+          <li><a href="{{ routes.collections_url }}/all">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            All Products
+          </a></li>
+          <li><a href="{{ routes.collections_url }}/new-arrivals">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            New Arrivals
+          </a></li>
+          <li><a href="{{ routes.collections_url }}/best-sellers">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Best Sellers
+          </a></li>
+          <li><a href="{{ routes.collections_url }}/sale">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Sale Items 🔥
+          </a></li>
+          <li><a href="{{ routes.root_url }}blogs/news">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Blog
+          </a></li>
+        </ul>
+      </nav>
+
+      <!-- Help & Support -->
+      <nav class="footer-col" aria-label="Help and support links">
+        <h4>Help & Support</h4>
+        <ul class="footer-links">
+          <li><a href="{{ routes.root_url }}pages/faq">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            FAQ
+          </a></li>
+          <li><a href="{{ routes.root_url }}pages/shipping-policy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Shipping Policy
+          </a></li>
+          <li><a href="{{ routes.root_url }}policies/refund-policy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Return Policy
+          </a></li>
+          <li><a href="{{ routes.root_url }}policies/privacy-policy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Privacy Policy
+          </a></li>
+          <li><a href="{{ routes.root_url }}policies/terms-of-service">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Terms of Service
+          </a></li>
+          <li><a href="{{ routes.root_url }}pages/contact">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            Contact Us
+          </a></li>
+        </ul>
+      </nav>
+
+      <!-- Contact Info -->
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <ul class="footer-contact" aria-label="Contact information">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <address style="font-style:normal">123 Toy Street, Happy Lane<br>New York, NY 10001</address>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.15 3.38 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            <a href="tel:{{ settings.announcement_phone | remove: ' ' | remove: '-' }}" style="color:rgba(255,255,255,0.65)">{{ settings.announcement_phone }}</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <a href="mailto:{{ settings.announcement_email }}" style="color:rgba(255,255,255,0.65)">{{ settings.announcement_email }}</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>Mon–Sat: 9AM–8PM</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer bottom bar -->
+  <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:0">
+    <div class="footer-bottom">
+      <p class="footer-copyright">{{ settings.footer_copyright }}</p>
+
+      <!-- Payment badges -->
+      <div class="footer-payments" aria-label="Accepted payment methods">
+        <span class="payment-icon visa" aria-label="Visa">VISA</span>
+        <span class="payment-icon" aria-label="Mastercard" style="font-size:0.65rem">MC</span>
+        <span class="payment-icon" aria-label="PayPal" style="color:#009cde;font-size:0.65rem">PayPal</span>
+        <span class="payment-icon" aria-label="Apple Pay" style="font-size:0.65rem">Apple Pay</span>
+        <span class="payment-icon" aria-label="Google Pay" style="font-size:0.65rem">G Pay</span>
+        <span class="payment-icon" aria-label="American Express" style="font-size:0.6rem">AMEX</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" aria-label="Back to top" title="Back to top"
+          style="position:fixed;bottom:2rem;right:2rem;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),var(--color-accent));color:var(--color-dark);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,215,0,0.4);opacity:0;transition:all 0.3s;z-index:100;pointer-events:none">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+</footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('.back-to-top');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.style.opacity = window.scrollY > 400 ? '1' : '0';
+    btn.style.pointerEvents = window.scrollY > 400 ? 'auto' : 'none';
+  }, {passive:true});
+  btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "footer",
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer settings are managed in Theme Settings."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,228 @@
+{% assign product = product %}
+
+<div class="product-page">
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom:1.5rem;font-size:0.85rem;color:var(--color-text-light)">
+      <a href="{{ routes.root_url }}" style="color:var(--color-text-light)">Home</a>
+      <span aria-hidden="true" style="margin:0 0.5rem">/</span>
+      {% if product.collections.first %}
+        <a href="{{ product.collections.first.url }}" style="color:var(--color-text-light)">{{ product.collections.first.title }}</a>
+        <span aria-hidden="true" style="margin:0 0.5rem">/</span>
+      {% endif %}
+      <span style="color:var(--color-text-secondary)" aria-current="page">{{ product.title }}</span>
+    </nav>
+
+    <div class="product-page__grid">
+
+      <!-- Product Gallery -->
+      <div class="product-gallery">
+        <div class="product-gallery__main" id="MainProductImage">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}"
+                 alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                 id="ProductMainImg"
+                 width="800" height="800"
+                 loading="eager"
+                 style="width:100%;height:100%;object-fit:cover">
+          {% else %}
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8rem;background:linear-gradient(135deg,#FFF9E0,#FFF0CC)" aria-hidden="true">🧸</div>
+          {% endif %}
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div class="product-gallery__thumbs" role="list" aria-label="Product images">
+            {% for image in product.images limit: 6 %}
+              <button class="gallery-thumb{% if forloop.first %} active{% endif %}"
+                      data-src="{{ image | image_url: width: 800 }}"
+                      data-alt="{{ image.alt | default: product.title | escape }}"
+                      role="listitem"
+                      aria-label="View image {{ forloop.index }}">
+                <img src="{{ image | image_url: width: 140 }}"
+                     alt="{{ image.alt | escape }}"
+                     width="70" height="70"
+                     loading="lazy">
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+
+        {% if product.vendor %}
+          <p class="product-info__vendor">{{ product.vendor }}</p>
+        {% endif %}
+
+        <h1 class="product-info__title">{{ product.title }}</h1>
+
+        <!-- Rating -->
+        <div class="product-rating-row">
+          <div class="stars" aria-label="4.5 out of 5 stars">
+            {% for i in (1..5) %}
+              <svg class="star-icon{% if i <= 4 %} filled{% endif %}" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                {% if i <= 4 %}<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                {% else %}<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                {% endif %}
+              </svg>
+            {% endfor %}
+          </div>
+          <span style="font-size:0.88rem;color:var(--color-text-secondary);font-weight:600">4.5 / 5</span>
+          <a href="#reviews" class="product-reviews-link">({{ product.metafields.reviews.rating_count | default: '24' }} reviews)</a>
+        </div>
+
+        <!-- Price -->
+        <div class="product-info__price">
+          <span class="price-main" id="ProductPrice">{{ product.price | money }}</span>
+          {% if product.compare_at_price > product.price %}
+            <span class="price-compare">{{ product.compare_at_price | money }}</span>
+            {% assign save = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+            <span class="price-discount">Save {{ save }}%</span>
+          {% endif %}
+        </div>
+
+        <!-- Description -->
+        {% if product.description != blank %}
+          <div class="product-desc">{{ product.description }}</div>
+        {% endif %}
+
+        {%- form 'product', product, data-product-form: true -%}
+
+          <!-- Variants -->
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="product-variants" id="variant-{{ option.name | handle }}">
+                <span class="variant-label">
+                  {{ option.name }}: <strong>{{ option.selected_value }}</strong>
+                </span>
+                <div class="variant-options" role="radiogroup" aria-label="{{ option.name }} options">
+                  {% for value in option.values %}
+                    <label class="variant-btn{% if option.selected_value == value %} active{% endif %}"
+                           aria-pressed="{{ option.selected_value == value }}"
+                           style="cursor:pointer;display:inline-block">
+                      <input type="radio"
+                             name="{{ option.name }}"
+                             value="{{ value }}"
+                             form="{{ form.id }}"
+                             class="visually-hidden"
+                             {% if option.selected_value == value %}checked{% endif %}>
+                      {{ value }}
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <input type="hidden" name="id" id="ProductVariantId" value="{{ product.selected_or_first_available_variant.id }}">
+
+          <!-- Quantity -->
+          <div class="product-qty-row">
+            <label for="ProductQty" style="font-weight:700;font-size:0.9rem">Quantity:</label>
+            <div class="qty-selector">
+              <button type="button" class="qty-minus" aria-label="Decrease quantity">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>
+              </button>
+              <input type="number" name="quantity" id="ProductQty" min="1" value="1" aria-label="Quantity" class="visually-hidden" style="position:static;width:48px;height:auto;clip:auto;overflow:visible;white-space:normal;display:block">
+              <button type="button" class="qty-plus" aria-label="Increase quantity">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Add to Cart row -->
+          <div class="product-atc-row">
+            {% if product.available %}
+              <button type="submit" class="btn btn-primary btn-lg" id="ProductATC" aria-label="Add {{ product.title }} to cart">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+                </svg>
+                Add to Cart
+              </button>
+            {% else %}
+              <button type="button" class="btn btn-primary btn-lg" disabled aria-disabled="true" style="opacity:0.5;cursor:not-allowed">
+                Sold Out
+              </button>
+            {% endif %}
+
+            <button type="button"
+                    class="product-wishlist-btn"
+                    data-wishlist-toggle="{{ product.selected_or_first_available_variant.id }}"
+                    aria-label="Add {{ product.title }} to wishlist">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+
+        {%- endform -%}
+
+        <!-- Product meta -->
+        <div class="product-meta" style="margin-top:1rem">
+          {% if product.type %}<p>Category: <span>{{ product.type }}</span></p>{% endif %}
+          {% if product.tags.size > 0 %}
+            <p>Tags: <span>{{ product.tags | join: ', ' }}</span></p>
+          {% endif %}
+          {% if product.available %}
+            <p style="color:var(--color-success);font-weight:700;display:flex;align-items:center;gap:0.4rem;margin-top:0.5rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              In Stock & Ready to Ship
+            </p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if recommendations.products_count > 0 %}
+      <section style="margin-top:5rem" aria-labelledby="RecommendedTitle">
+        <h2 class="section-title" style="text-align:left;margin-bottom:2rem" id="RecommendedTitle">You May Also Like</h2>
+        <div class="products-grid">
+          {% for rec_product in recommendations.products limit: 4 %}
+            {% render 'product-card', product: rec_product %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+(function(){
+  /* Gallery thumbnails */
+  document.querySelectorAll('.gallery-thumb').forEach(function(thumb){
+    thumb.addEventListener('click', function(){
+      var mainImg = document.getElementById('ProductMainImg');
+      if(mainImg && thumb.dataset.src){ mainImg.src = thumb.dataset.src; mainImg.alt = thumb.dataset.alt || ''; }
+      document.querySelectorAll('.gallery-thumb').forEach(function(t){ t.classList.remove('active'); });
+      thumb.classList.add('active');
+    });
+  });
+
+  /* Qty selector */
+  var qtyInput = document.getElementById('ProductQty');
+  document.querySelector('.qty-minus') && document.querySelector('.qty-minus').addEventListener('click', function(){
+    if(qtyInput) qtyInput.value = Math.max(1, parseInt(qtyInput.value)-1);
+  });
+  document.querySelector('.qty-plus') && document.querySelector('.qty-plus').addEventListener('click', function(){
+    if(qtyInput) qtyInput.value = parseInt(qtyInput.value)+1;
+  });
+
+  /* Variant selection */
+  document.querySelectorAll('.variant-btn input[type=radio]').forEach(function(radio){
+    radio.addEventListener('change', function(){
+      var group = radio.closest('.product-variants');
+      if(group){
+        group.querySelectorAll('.variant-btn').forEach(function(btn){ btn.classList.remove('active'); btn.setAttribute('aria-pressed','false'); });
+        radio.closest('.variant-btn').classList.add('active');
+        radio.closest('.variant-btn').setAttribute('aria-pressed','true');
+      }
+    });
+  });
+})();
+</script>

@@ -1,0 +1,77 @@
+{%- assign products_collection = collections[section.settings.collection] -%}
+
+<section class="products-section{% if section.settings.bg_white %} bg-white{% endif %}" aria-labelledby="FeaturedTitle">
+  <div class="container">
+
+    <div class="products-header">
+      <div>
+        <h2 class="section-title" id="FeaturedTitle" style="text-align:left">{{ section.settings.title }}</h2>
+        <p style="color:var(--color-text-light);font-size:0.9rem;margin-top:0.25rem">{{ section.settings.subtitle }}</p>
+      </div>
+      <a href="{{ products_collection.url | default: routes.collections_url | append: '/all' }}" class="btn btn-outline btn-sm" aria-label="View all {{ section.settings.title }}">
+        View All
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+
+    <div class="products-grid">
+      {%- if products_collection != blank and products_collection.products.size > 0 -%}
+        {%- for product in products_collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..8) -%}
+          {% render 'product-card', product: nil, index: i %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "class": "featured-products-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Hand-picked toys loved by parents and kids"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to Show"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to Show",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "bg_white",
+      "label": "White Background",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

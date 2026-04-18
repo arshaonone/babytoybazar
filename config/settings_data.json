@@ -1,0 +1,33 @@
+{
+  "current": {
+    "announcement_text": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!",
+    "announcement_email": "info@babytoysbazar.com",
+    "announcement_phone": "+012-456-789",
+    "show_announcement": true,
+    "logo_text": "BabyToyBazar",
+    "primary_color": "#FFD700",
+    "accent_color": "#FF8C00",
+    "show_free_shipping": true,
+    "free_shipping_text": "Free shipping now available",
+    "usp_shipping_title": "Free Shipping",
+    "usp_shipping_text": "On orders over $50",
+    "usp_payment_title": "Secure Payment",
+    "usp_payment_text": "100% Protected",
+    "usp_return_title": "Easy Returns",
+    "usp_return_text": "30-Day Policy",
+    "usp_support_title": "24/7 Support",
+    "usp_support_text": "Always here to help",
+    "newsletter_title": "Stay Updated with BabyToyBazar",
+    "newsletter_subtitle": "Subscribe to get exclusive deals, new arrivals & parenting tips delivered to your inbox.",
+    "footer_about": "BabyToyBazar is your one-stop destination for premium quality baby toys and educational gifts. We believe every toy should spark joy, creativity, and learning.",
+    "footer_facebook": "https://facebook.com",
+    "footer_instagram": "https://instagram.com",
+    "footer_twitter": "https://twitter.com",
+    "footer_youtube": "https://youtube.com",
+    "footer_copyright": "© 2024 BabyToyBazar. All Rights Reserved.",
+    "type_base_size": "16px",
+    "type_base_family": "Nunito, sans-serif",
+    "type_header_family": "Poppins, sans-serif"
+  },
+  "presets": {}
+}

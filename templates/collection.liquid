@@ -1,0 +1,55 @@
+<div class="collection-page">
+  <div class="container">
+
+    <!-- Collection Header -->
+    <div class="collection-header">
+      <h1>{{ collection.title }}</h1>
+      {% if collection.description != blank %}
+        <div style="color:var(--color-text-secondary);margin-top:0.5rem;max-width:600px">{{ collection.description }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Filters & Sort bar -->
+    <div class="collection-filters-bar">
+      <p class="collection-count" aria-live="polite">
+        {{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}
+      </p>
+      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+        <label for="SortBy" style="font-size:0.88rem;font-weight:700;color:var(--color-text-secondary)">Sort by:</label>
+        <select name="sort_by" id="SortBy" class="sort-select" aria-label="Sort products by" onchange="window.location.search='?sort_by='+this.value">
+          <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>{{ 'collections.sort_options.manual' | t }}</option>
+          <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>{{ 'collections.sort_options.best-selling' | t }}</option>
+          <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>{{ 'collections.sort_options.title-ascending' | t }}</option>
+          <option value="title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>{{ 'collections.sort_options.title-descending' | t }}</option>
+          <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collections.sort_options.price-ascending' | t }}</option>
+          <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>{{ 'collections.sort_options.price-descending' | t }}</option>
+          <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>{{ 'collections.sort_options.created-descending' | t }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Products grid -->
+    {% if collection.products.size > 0 %}
+      <div class="products-grid">
+        {% for product in collection.products %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="text-align:center;padding:5rem 0;color:var(--color-text-light)">
+        <div style="font-size:4rem;margin-bottom:1rem" aria-hidden="true">🧸</div>
+        <h3>{{ 'products.general.no_products' | t }}</h3>
+        <p style="margin-top:0.5rem">Check back soon for new products!</p>
+        <a href="/collections/all" class="btn btn-primary" style="margin-top:1.5rem">Shop All Toys</a>
+      </div>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if paginate.pages > 1 %}
+      <div style="display:flex;justify-content:center;margin-top:3rem">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endif %}
+
+  </div>
+</div>

@@ -1,0 +1,413 @@
+<header class="site-header" id="SiteHeader" role="banner">
+
+  <!-- ====== TOP HEADER ROW ====== -->
+  <div class="site-header__main">
+
+    <!-- Hamburger (mobile) -->
+    <button class="mobile-menu-btn" id="MobileMenuBtn" aria-label="{{ 'accessibility.open_menu' | t }}" aria-expanded="false" aria-controls="MobileNav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Logo -->
+    <div class="site-logo">
+      {%- if settings.logo != blank -%}
+        <a href="{{ routes.root_url }}" class="site-logo__text" aria-label="{{ shop.name }} home">
+          <img src="{{ settings.logo | image_url: width: settings.logo_width }}"
+               alt="{{ shop.name }}"
+               width="{{ settings.logo_width }}"
+               class="site-logo__img"
+               loading="eager">
+        </a>
+      {%- else -%}
+        <a href="{{ routes.root_url }}" class="site-logo__text" aria-label="{{ shop.name }} home">
+          <div class="site-logo__icon" aria-hidden="true">🧸</div>
+          <div class="site-logo__name">
+            {{ settings.logo_text | split: ' ' | first }}<span>{{ settings.logo_text | split: ' ' | last }}</span>
+          </div>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <!-- Search Bar -->
+    <div class="header-search">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="header-search__form" aria-label="Site search">
+        <input type="hidden" name="type" value="product">
+        <input type="search"
+               name="q"
+               class="header-search__input"
+               placeholder="{{ 'general.search.placeholder' | t }}"
+               aria-label="{{ 'general.search.placeholder' | t }}"
+               value="{{ search.terms | escape }}"
+               autocomplete="off">
+        <button type="submit" class="header-search__btn" aria-label="{{ 'general.search.submit' | t }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Header Action Icons -->
+    <nav class="header-actions" aria-label="Account and cart navigation">
+
+      <!-- Search (mobile icon) -->
+      <button class="header-action" data-open-search aria-label="Open search" id="SearchBtn">
+        <span class="header-action__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </span>
+        <span class="header-action__label">Search</span>
+      </button>
+
+      <!-- Wishlist -->
+      <a class="header-action" href="{{ routes.root_url }}pages/wishlist" aria-label="Wishlist" id="WishlistBtn">
+        <span class="header-action__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="header-action__badge" id="WishlistCount" aria-label="0 items in wishlist" style="display:none">0</span>
+        </span>
+        <span class="header-action__label">Wishlist</span>
+      </a>
+
+      <!-- Compare -->
+      <a class="header-action" href="{{ routes.root_url }}pages/compare" aria-label="Compare products">
+        <span class="header-action__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="header-action__badge" id="CompareCount" aria-label="0 items to compare" style="display:none">0</span>
+        </span>
+        <span class="header-action__label">Compare</span>
+      </a>
+
+      <!-- Cart -->
+      <button class="header-action" data-open-cart id="CartBtn" aria-label="Open shopping cart, {{ cart.item_count }} items">
+        <span class="header-action__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+          </svg>
+          <span class="header-action__badge cart-item-count" aria-live="polite">{{ cart.item_count }}</span>
+        </span>
+        <span class="header-action__label">Cart</span>
+      </button>
+
+      <!-- Account -->
+      {%- if customer -%}
+        <a class="header-action" href="{{ routes.account_url }}" aria-label="My Account">
+          <span class="header-action__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </span>
+          <span class="header-action__label">Account</span>
+        </a>
+      {%- else -%}
+        <a class="header-action" href="{{ routes.account_login_url }}" aria-label="Sign in">
+          <span class="header-action__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </span>
+          <span class="header-action__label">Sign In</span>
+        </a>
+      {%- endif -%}
+
+    </nav>
+  </div>
+
+  <!-- ====== YELLOW NAV BAR ====== -->
+  <nav class="site-nav" id="SiteNav" aria-label="Main navigation">
+    <div class="site-nav__inner">
+
+      <!-- All Categories button -->
+      <div style="position:relative">
+        <button class="nav-all-cats" id="AllCatsBtn" aria-expanded="false" aria-controls="CatsMega" aria-label="All Categories menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          All Categories
+        </button>
+        <!-- Mega menu -->
+        <div class="cats-mega" id="CatsMega" role="menu" aria-label="Product categories">
+          <ul class="cats-mega__list">
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#9c27b0,#673ab7)" aria-hidden="true">🧸</span>
+              <a href="{{ routes.collections_url }}/soft-dolls">Soft Dolls &amp; Plush</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#43a047,#1b5e20)" aria-hidden="true">🧩</span>
+              <a href="{{ routes.collections_url }}/puzzle-toys">Puzzle Toys</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#1976d2,#0d47a1)" aria-hidden="true">🚂</span>
+              <a href="{{ routes.collections_url }}/toys-train">Toys Train</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#00acc1,#006064)" aria-hidden="true">🎁</span>
+              <a href="{{ routes.collections_url }}/kids-gift-box">Kids Gift Box</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#fb8c00,#e65100)" aria-hidden="true">🏙️</span>
+              <a href="{{ routes.collections_url }}/city-toys">City Toys</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#e91e63,#880e4f)" aria-hidden="true">🐾</span>
+              <a href="{{ routes.collections_url }}/pet-toys">Pet Toys</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#7c4dff,#4527a0)" aria-hidden="true">🎮</span>
+              <a href="{{ routes.collections_url }}/educational">Educational Toys</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#26a69a,#00695c)" aria-hidden="true">🎨</span>
+              <a href="{{ routes.collections_url }}/art-craft">Art &amp; Craft</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#ef5350,#b71c1c)" aria-hidden="true">🚗</span>
+              <a href="{{ routes.collections_url }}/vehicles">Toy Vehicles</a>
+            </li>
+            <li class="cats-mega__item" role="menuitem">
+              <span class="cats-mega__icon" style="background:linear-gradient(135deg,#FFD700,#FF8C00)" aria-hidden="true">⚽</span>
+              <a href="{{ routes.collections_url }}/outdoor-toys">Outdoor &amp; Sports</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Nav menu links -->
+      <ul class="nav-menu" role="list">
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.root_url }}" class="nav-menu__link{% if request.path == routes.root_url %} active{% endif %}">
+            Home
+            <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="nav-dropdown" role="menu">
+            <a href="{{ routes.root_url }}" role="menuitem">Home Default</a>
+            <a href="{{ routes.root_url }}?layout=2" role="menuitem">Home v2</a>
+          </div>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.collections_url }}/all" class="nav-menu__link">
+            Shop
+            <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="nav-dropdown" role="menu">
+            <a href="{{ routes.collections_url }}/all" role="menuitem">All Products</a>
+            <a href="{{ routes.collections_url }}/new-arrivals" role="menuitem">New Arrivals</a>
+            <a href="{{ routes.collections_url }}/best-sellers" role="menuitem">Best Sellers</a>
+            <a href="{{ routes.collections_url }}/sale" role="menuitem">Sale Items 🔥</a>
+          </div>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="#" class="nav-menu__link">
+            Pages
+            <svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <div class="nav-dropdown" role="menu">
+            <a href="{{ routes.root_url }}pages/about-us" role="menuitem">About Us</a>
+            <a href="{{ routes.root_url }}pages/faq" role="menuitem">FAQ</a>
+            <a href="{{ routes.root_url }}pages/shipping-policy" role="menuitem">Shipping Policy</a>
+            <a href="{{ routes.root_url }}pages/return-policy" role="menuitem">Return Policy</a>
+            <a href="{{ routes.root_url }}pages/privacy-policy" role="menuitem">Privacy Policy</a>
+            <a href="{{ routes.root_url }}pages/terms" role="menuitem">Terms of Service</a>
+          </div>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.root_url }}blogs/news" class="nav-menu__link">Blog</a>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.collections_url }}" class="nav-menu__link">Collection</a>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.root_url }}pages/about-us" class="nav-menu__link">About Us</a>
+        </li>
+
+        <li class="nav-menu__item">
+          <a href="{{ routes.root_url }}pages/contact" class="nav-menu__link">Contact Us</a>
+        </li>
+
+      </ul>
+
+      <!-- Free shipping badge -->
+      {% if settings.show_free_shipping %}
+        <div class="nav-free-ship" aria-label="{{ settings.free_shipping_text }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          {{ settings.free_shipping_text }}
+        </div>
+      {% endif %}
+
+    </div>
+  </nav>
+
+</header>
+
+<!-- ====== MOBILE NAV DRAWER ====== -->
+<div class="mobile-nav" id="MobileNav" aria-hidden="true">
+  <div class="mobile-nav__overlay" id="MobileNavOverlay"></div>
+  <div class="mobile-nav__panel" id="MobileNavPanel">
+    <div class="mobile-nav__head">
+      <a href="{{ routes.root_url }}" class="site-logo__text" aria-label="{{ shop.name }} home">
+        <div class="site-logo__icon" style="width:36px;height:36px;font-size:1.1rem" aria-hidden="true">🧸</div>
+        <div class="site-logo__name">{{ settings.logo_text | split: ' ' | first }}<span style="color:#FF8C00">{{ settings.logo_text | split: ' ' | last }}</span></div>
+      </a>
+      <button class="icon-btn mobile-nav__close" id="MobileNavClose" aria-label="{{ 'accessibility.close_menu' | t }}" style="color:#1a1a2e">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile search -->
+    <div style="padding:1rem 1.25rem;border-bottom:1px solid #f0f2f5">
+      <form action="{{ routes.search_url }}" method="get" style="display:flex;gap:0.5rem">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}"
+               style="flex:1;padding:0.6rem 1rem;border:1px solid #e8ecf0;border-radius:50px;font-size:0.88rem;outline:none">
+        <button type="submit" style="background:linear-gradient(135deg,#FFD700,#FF8C00);border:none;padding:0 1rem;border-radius:50px;cursor:pointer;color:#1a1a2e">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <nav class="mobile-nav__links" aria-label="{{ 'accessibility.navigation' | t }}">
+      <a href="{{ routes.root_url }}" class="mobile-nav__link">Home</a>
+      <a href="{{ routes.collections_url }}/all" class="mobile-nav__link">
+        Shop
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+      <a href="{{ routes.root_url }}collections" class="mobile-nav__link">Collection</a>
+      <a href="{{ routes.root_url }}blogs/news" class="mobile-nav__link">Blog</a>
+      <a href="{{ routes.root_url }}pages/about-us" class="mobile-nav__link">About Us</a>
+      <a href="{{ routes.root_url }}pages/contact" class="mobile-nav__link">Contact Us</a>
+      <a href="{{ routes.root_url }}pages/faq" class="mobile-nav__link">FAQ</a>
+      {%- if customer -%}
+        <a href="{{ routes.account_url }}" class="mobile-nav__link">My Account</a>
+        <a href="{{ routes.account_logout_url }}" class="mobile-nav__link">Sign Out</a>
+      {%- else -%}
+        <a href="{{ routes.account_login_url }}" class="mobile-nav__link">Sign In</a>
+        <a href="{{ routes.account_register_url }}" class="mobile-nav__link">Register</a>
+      {%- endif -%}
+    </nav>
+
+    <!-- Mobile social links -->
+    <div style="padding:1.5rem 1.25rem;margin-top:auto;border-top:1px solid #f0f2f5">
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+        {% if settings.footer_facebook != blank %}
+          <a href="{{ settings.footer_facebook }}" class="social-btn fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        {% endif %}
+        {% if settings.footer_instagram != blank %}
+          <a href="{{ settings.footer_instagram }}" class="social-btn ig" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {% endif %}
+      </div>
+      <p style="font-size:0.75rem;color:#888;margin-top:0.75rem">{{ settings.footer_copyright }}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var mobileMenuBtn = document.getElementById('MobileMenuBtn');
+  var mobileNav = document.getElementById('MobileNav');
+  var mobileNavOverlay = document.getElementById('MobileNavOverlay');
+  var mobileNavClose = document.getElementById('MobileNavClose');
+  function openNav(){
+    if(mobileNav){ mobileNav.classList.add('open'); mobileNav.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; if(mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded','true'); }
+  }
+  function closeNav(){
+    if(mobileNav){ mobileNav.classList.remove('open'); mobileNav.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded','false'); }
+  }
+  if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openNav);
+  if(mobileNavOverlay) mobileNavOverlay.addEventListener('click', closeNav);
+  if(mobileNavClose) mobileNavClose.addEventListener('click', closeNav);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+
+  /* All categories mega menu */
+  var allCatsBtn = document.getElementById('AllCatsBtn');
+  var catsMega = document.getElementById('CatsMega');
+  if(allCatsBtn && catsMega){
+    allCatsBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = catsMega.classList.toggle('open');
+      allCatsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){
+      if(!catsMega.contains(e.target) && e.target !== allCatsBtn){
+        catsMega.classList.remove('open');
+        allCatsBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "section",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text (if no image)",
+      "default": "BabyToyBazar"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 160
+    },
+    {
+      "type": "checkbox",
+      "id": "show_free_shipping",
+      "label": "Show Free Shipping Text in Nav",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_text",
+      "label": "Free Shipping Text",
+      "default": "Free shipping now available"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

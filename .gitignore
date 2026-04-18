@@ -1,0 +1,10 @@
+# BabyToyBazar — Shopify Theme
+# Ignore system files and the zip artifact
+*.zip
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/
+node_modules/

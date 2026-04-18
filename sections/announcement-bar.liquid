@@ -1,0 +1,112 @@
+{% if settings.show_announcement %}
+<div class="announcement-bar" role="banner" aria-label="Announcement">
+  <div class="container announcement-bar__inner">
+
+    <!-- Left: email & phone -->
+    <div class="announcement-bar__left">
+      {% if settings.announcement_email != blank %}
+        <a class="announcement-bar__link" href="mailto:{{ settings.announcement_email }}" aria-label="Email us">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          {{ settings.announcement_email }}
+        </a>
+      {% endif %}
+
+      {% if settings.announcement_email != blank and settings.announcement_phone != blank %}
+        <div class="announce-sep" aria-hidden="true"></div>
+      {% endif %}
+
+      {% if settings.announcement_phone != blank %}
+        <a class="announcement-bar__link" href="tel:{{ settings.announcement_phone | remove: ' ' | remove: '-' }}" aria-label="Call us">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.15 3.38 2 2 0 012.11 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          {{ settings.announcement_phone }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Center: scrolling announcement text -->
+    <div class="announcement-bar__center" aria-live="polite">
+      {% if settings.announcement_text != blank %}
+        <span class="announce-ticker">{{ settings.announcement_text }}</span>
+      {% endif %}
+    </div>
+
+    <!-- Right: links -->
+    <div class="announcement-bar__right">
+      <a href="{{ routes.root_url }}pages/order-tracking" class="announcement-bar__link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        Order Tracking
+      </a>
+
+      <div class="announce-sep" aria-hidden="true"></div>
+
+      <button class="announcement-bar__link" aria-label="Select currency">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        {{ 'general.currency' | t }}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+
+      <div class="announce-sep" aria-hidden="true"></div>
+
+      <button class="announcement-bar__link" aria-label="Select language">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/>
+          <path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/>
+        </svg>
+        {{ 'general.language' | t }}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "🎉 Get up to 80% off using BABY2024 coupon code! Free shipping on orders over $50!"
+    },
+    {
+      "type": "text",
+      "id": "announcement_email",
+      "label": "Email Address",
+      "default": "info@babytoysbazar.com"
+    },
+    {
+      "type": "text",
+      "id": "announcement_phone",
+      "label": "Phone Number",
+      "default": "+012-456-789"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

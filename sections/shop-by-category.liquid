@@ -1,0 +1,256 @@
+<section class="categories-section" aria-labelledby="CatsSectionTitle">
+  <div class="container">
+
+    <h2 class="section-title" id="CatsSectionTitle">{{ section.settings.title }}</h2>
+    <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+
+    <div class="categories-carousel-wrap">
+      <!-- Previous arrow -->
+      <button class="cat-arrow prev" id="CatPrev" aria-label="Scroll categories left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <!-- Category carousel -->
+      <div class="categories-carousel" id="CatsCarousel" role="list">
+
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            <a href="{{ block.settings.url | default: '/collections/' | append: block.settings.title | handle }}"
+               class="category-item"
+               role="listitem"
+               {{ block.shopify_attributes }}
+               aria-label="{{ block.settings.title }}">
+              <div class="category-circle {{ block.settings.color_class }}" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'soft-dolls' %}
+                    <!-- Soft Doll / Rabbit SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <ellipse cx="32" cy="42" rx="14" ry="16" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <circle cx="32" cy="20" r="12" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="22" cy="9" rx="4" ry="9" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="42" cy="9" rx="4" ry="9" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <circle cx="27" cy="20" r="2" fill="white"/>
+                      <circle cx="37" cy="20" r="2" fill="white"/>
+                      <path d="M28 25 Q32 28 36 25" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    </svg>
+                  {% when 'puzzle' %}
+                    <!-- Puzzle SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M10 10h18v6a4 4 0 010 8H10V10z" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                      <path d="M28 10h26v18h-6a4 4 0 010 8h6v18H28V46a4 4 0 010-8V10z" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                      <path d="M10 36h18v18H10V36z" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                  {% when 'train' %}
+                    <!-- Toy Train SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="6" y="22" width="52" height="24" rx="5" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <rect x="14" y="10" width="16" height="14" rx="4" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <rect x="34" y="14" width="18" height="10" rx="3" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <circle cx="16" cy="50" r="7" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2"/>
+                      <circle cx="48" cy="50" r="7" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2"/>
+                      <line x1="6" y1="34" x2="58" y2="34" stroke="white" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    </svg>
+                  {% when 'gift' %}
+                    <!-- Gift Box SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="8" y="28" width="48" height="28" rx="3" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <rect x="8" y="18" width="48" height="12" rx="3" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <line x1="32" y1="18" x2="32" y2="56" stroke="white" stroke-width="2"/>
+                      <line x1="8" y1="28" x2="56" y2="28" stroke="white" stroke-width="2"/>
+                      <path d="M32 18 C32 18 24 10 20 12 C18 16 28 18 32 18 C32 18 40 10 44 12 C46 16 36 18 32 18" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                  {% when 'city' %}
+                    <!-- City Building SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="20" y="14" width="24" height="42" rx="2" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <rect x="6" y="26" width="16" height="30" rx="2" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <rect x="42" y="20" width="16" height="36" rx="2" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <rect x="26" y="22" width="6" height="8" rx="1" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.5"/>
+                      <rect x="32" y="22" width="6" height="8" rx="1" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.5"/>
+                      <rect x="26" y="34" width="6" height="8" rx="1" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.5"/>
+                      <rect x="32" y="34" width="6" height="8" rx="1" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.5"/>
+                      <rect x="28" y="46" width="8" height="10" rx="1" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                  {% when 'pet' %}
+                    <!-- Pet Paw SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <ellipse cx="32" cy="40" rx="12" ry="10" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="20" cy="28" rx="5" ry="7" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="44" cy="28" rx="5" ry="7" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="13" cy="40" rx="5" ry="7" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <ellipse cx="51" cy="40" rx="5" ry="7" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                    </svg>
+                  {% when 'educational' %}
+                    <!-- ABC Book SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="10" y="10" width="44" height="44" rx="4" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <line x1="32" y1="10" x2="32" y2="54" stroke="white" stroke-width="2"/>
+                      <text x="14" y="35" font-family="sans-serif" font-size="14" font-weight="bold" fill="white">A</text>
+                      <text x="36" y="35" font-family="sans-serif" font-size="14" font-weight="bold" fill="white">B</text>
+                    </svg>
+                  {% when 'art' %}
+                    <!-- Paint Palette SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M32 8C18.7 8 8 18.7 8 32c0 13.3 9.4 22 21 22 5.5 0 9-4.5 9-9 0-2.4 2-4 4-4h6c7.7 0 8-6.6 8-9C56 18.7 45.3 8 32 8z" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <circle cx="22" cy="22" r="4" fill="white" opacity="0.6"/>
+                      <circle cx="34" cy="18" r="4" fill="white" opacity="0.6"/>
+                      <circle cx="44" cy="28" r="4" fill="white" opacity="0.6"/>
+                      <circle cx="18" cy="34" r="4" fill="white" opacity="0.6"/>
+                    </svg>
+                  {% when 'vehicle' %}
+                    <!-- Toy Car SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="6" y="30" width="52" height="20" rx="5" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="2"/>
+                      <path d="M12 30 L20 18 H44 L52 30" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                      <circle cx="18" cy="52" r="8" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2"/>
+                      <circle cx="46" cy="52" r="8" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2"/>
+                      <rect x="24" y="20" width="16" height="12" rx="2" fill="rgba(255,255,255,0.4)" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                  {% when 'outdoor' %}
+                    <!-- Ball SVG -->
+                    <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <circle cx="32" cy="32" r="24" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2"/>
+                      <path d="M32 8 Q44 20 44 32 Q44 44 32 56" stroke="white" stroke-width="2" fill="none"/>
+                      <path d="M32 8 Q20 20 20 32 Q20 44 32 56" stroke="white" stroke-width="2" fill="none"/>
+                      <line x1="8" y1="32" x2="56" y2="32" stroke="white" stroke-width="2"/>
+                    </svg>
+                  {% else %}
+                    <!-- Default toy star -->
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                {% endcase %}
+              </div>
+              <span class="category-label">{{ block.settings.title }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+
+      <!-- Next arrow -->
+      <button class="cat-arrow next" id="CatNext" aria-label="Scroll categories right">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var carousel = document.getElementById('CatsCarousel');
+  var prevBtn = document.getElementById('CatPrev');
+  var nextBtn = document.getElementById('CatNext');
+  if(!carousel) return;
+  var step = 260;
+  if(prevBtn) prevBtn.addEventListener('click', function(){ carousel.scrollBy({left:-step,behavior:'smooth'}); });
+  if(nextBtn) nextBtn.addEventListener('click', function(){ carousel.scrollBy({left:step,behavior:'smooth'}); });
+  var touchX = 0;
+  carousel.addEventListener('touchstart', function(e){ touchX = e.changedTouches[0].clientX; }, {passive:true});
+  carousel.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 40) carousel.scrollBy({left:-dx,behavior:'smooth'});
+  }, {passive:true});
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Shop By Categories",
+  "tag": "section",
+  "class": "categories-section-wrapper",
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Name",
+          "default": "Soft Dolls"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Category URL"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon Type",
+          "options": [
+            { "value": "soft-dolls",   "label": "Soft Dolls / Plush" },
+            { "value": "puzzle",       "label": "Puzzle Toys" },
+            { "value": "train",        "label": "Toys Train" },
+            { "value": "gift",         "label": "Kids Gift Box" },
+            { "value": "city",         "label": "City Toys" },
+            { "value": "pet",          "label": "Pet Toys" },
+            { "value": "educational",  "label": "Educational Toys" },
+            { "value": "art",          "label": "Art & Craft" },
+            { "value": "vehicle",      "label": "Toy Vehicles" },
+            { "value": "outdoor",      "label": "Outdoor & Sports" }
+          ],
+          "default": "soft-dolls"
+        },
+        {
+          "type": "select",
+          "id": "color_class",
+          "label": "Circle Color",
+          "options": [
+            { "value": "cat-purple",      "label": "Purple" },
+            { "value": "cat-green",       "label": "Green" },
+            { "value": "cat-blue",        "label": "Blue" },
+            { "value": "cat-cyan",        "label": "Cyan" },
+            { "value": "cat-orange",      "label": "Orange" },
+            { "value": "cat-pink",        "label": "Pink" },
+            { "value": "cat-red",         "label": "Red" },
+            { "value": "cat-teal",        "label": "Teal" },
+            { "value": "cat-amber",       "label": "Amber" },
+            { "value": "cat-indigo",      "label": "Indigo" },
+            { "value": "cat-lime",        "label": "Lime" },
+            { "value": "cat-deep-purple", "label": "Deep Purple" }
+          ],
+          "default": "cat-purple"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop By Categories"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Find what your little one loves"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Categories",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Soft Dolls",    "icon": "soft-dolls",  "color_class": "cat-purple" } },
+        { "type": "category", "settings": { "title": "Puzzle Toys",   "icon": "puzzle",      "color_class": "cat-green" } },
+        { "type": "category", "settings": { "title": "Toys Train",    "icon": "train",       "color_class": "cat-blue" } },
+        { "type": "category", "settings": { "title": "Kids Gift Box", "icon": "gift",        "color_class": "cat-cyan" } },
+        { "type": "category", "settings": { "title": "City Toys",     "icon": "city",        "color_class": "cat-orange" } },
+        { "type": "category", "settings": { "title": "Pet Toys",      "icon": "pet",         "color_class": "cat-pink" } },
+        { "type": "category", "settings": { "title": "Educational",   "icon": "educational", "color_class": "cat-indigo" } },
+        { "type": "category", "settings": { "title": "Art & Craft",   "icon": "art",         "color_class": "cat-teal" } },
+        { "type": "category", "settings": { "title": "Vehicles",      "icon": "vehicle",     "color_class": "cat-red" } },
+        { "type": "category", "settings": { "title": "Outdoor Toys",  "icon": "outdoor",     "color_class": "cat-lime" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

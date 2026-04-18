@@ -1,0 +1,93 @@
+<section class="newsletter-section" aria-labelledby="NewsletterTitle">
+  <div class="container">
+    <div class="newsletter-inner">
+
+      <div class="newsletter-icon" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+
+      <h2 id="NewsletterTitle">{{ section.settings.title }}</h2>
+      <p>{{ section.settings.subtitle }}</p>
+
+      {% form 'customer', id: 'NewsletterForm', class: 'newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email"
+               name="contact[email]"
+               class="newsletter-input"
+               placeholder="{{ 'general.newsletter.placeholder' | t }}"
+               required
+               aria-label="{{ 'general.newsletter.placeholder' | t }}"
+               autocomplete="email"
+               id="NewsletterEmail">
+        <button type="submit" class="newsletter-submit" id="NewsletterSubmit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          {{ 'general.newsletter.submit' | t }}
+        </button>
+      {% endform %}
+
+      {%- if customer.tags contains 'newsletter' -%}
+        <div class="newsletter-success" role="alert" style="margin-top:1rem;color:rgba(0,0,0,0.7);font-weight:700">
+          ✅ {{ 'general.newsletter.success' | t }}
+        </div>
+      {%- endif -%}
+
+      <p class="newsletter-privacy">
+        🔒 We respect your privacy. No spam ever. Unsubscribe anytime.
+      </p>
+
+      <!-- Stats -->
+      <div style="display:flex;gap:2rem;justify-content:center;margin-top:2rem;flex-wrap:wrap">
+        <div style="text-align:center">
+          <p style="font-size:1.5rem;font-weight:900;color:var(--color-dark)">10K+</p>
+          <p style="font-size:0.8rem;color:rgba(0,0,0,0.6);font-weight:600">Happy Customers</p>
+        </div>
+        <div style="text-align:center">
+          <p style="font-size:1.5rem;font-weight:900;color:var(--color-dark)">500+</p>
+          <p style="font-size:0.8rem;color:rgba(0,0,0,0.6);font-weight:600">Toy Products</p>
+        </div>
+        <div style="text-align:center">
+          <p style="font-size:1.5rem;font-weight:900;color:var(--color-dark)">4.9★</p>
+          <p style="font-size:0.8rem;color:rgba(0,0,0,0.6);font-weight:600">Average Rating</p>
+        </div>
+        <div style="text-align:center">
+          <p style="font-size:1.5rem;font-weight:900;color:var(--color-dark)">98%</p>
+          <p style="font-size:0.8rem;color:rgba(0,0,0,0.6);font-weight:600">Satisfied Parents</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "newsletter-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Stay Updated with BabyToyBazar"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Subscribe to get exclusive deals, new arrivals & parenting tips delivered to your inbox."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}
