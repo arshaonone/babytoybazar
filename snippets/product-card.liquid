@@ -16,27 +16,33 @@
     {%- assign on_sale = true -%}
     {%- assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
   {%- endif -%}
+  {%- comment -%} Check if product is new via tag or recent creation (safe method) {%- endcomment -%}
   {%- assign is_new = false -%}
-  {%- assign days_old = product.created_at | date: '%s' | minus: 'now' | date: '%s' | abs | divided_by: 86400 -%}
-  {%- if days_old < 30 -%}{%- assign is_new = true -%}{%- endif -%}
+  {%- if product.tags contains 'new' or product.tags contains 'New' or product.tags contains 'new-arrival' -%}
+    {%- assign is_new = true -%}
+  {%- endif -%}
   {%- assign product_type = product.type -%}
   {%- assign vendor = product.vendor -%}
   {%- assign available = product.available -%}
 {%- else -%}
-  {%- assign demo_titles = "Rainbow Stacking Rings,Wooden Animal Puzzle,Musical Baby Piano,Pull Along Duck Toy,Soft Lion Plush Toy,STEM Building Blocks,Baby Activity Gym,Eco Play Dough Set" | split: ',' -%}
-  {%- assign demo_prices = "$24.99,$18.99,$34.99,$16.99,$22.99,$39.99,$44.99,$12.99" | split: ',' -%}
-  {%- assign demo_compare = "$34.99,$28.99,,,$32.99,$54.99,,," | split: ',' -%}
+  {%- assign demo_titles = "RC Fire Rescue Truck,Blue Police Tanker,Cycling Doll Toy,Ice Cream Cart Toy,Rainbow Stacking Rings,STEM Building Blocks,Baby Activity Gym,Wooden Animal Puzzle" | split: ',' -%}
+  {%- assign demo_prices = "$34.99,$19.99,$22.99,$27.99,$24.99,$39.99,$44.99,$18.99" | split: ',' -%}
+  {%- assign demo_compare = "$49.99,$29.99,,,$34.99,$54.99,," | split: ',' -%}
   {%- assign idx = index | minus: 1 -%}
   {%- assign product_title = demo_titles[idx] | default: "Baby Toy" -%}
   {%- assign product_url = '/collections/all' -%}
   {%- assign product_price = demo_prices[idx] | default: "$19.99" -%}
   {%- assign product_compare_price = demo_compare[idx] -%}
-  {%- assign variant_id = 1 -%}
+  {%- assign variant_id = index -%}
   {%- assign product_handle = 'demo-product' -%}
-  {%- assign on_sale = index == 1 or index == 2 or index == 5 or index == 6 -%}
+  {%- assign on_sale = false -%}
+  {%- if index == 1 or index == 2 or index == 5 or index == 6 -%}{%- assign on_sale = true -%}{%- endif -%}
   {%- assign save_pct = 30 -%}
-  {%- assign is_new = index == 3 or index == 4 -%}
+  {%- assign is_new = false -%}
+  {%- if index == 3 or index == 4 -%}{%- assign is_new = true -%}{%- endif -%}
   {%- assign available = true -%}
+  {%- assign product_type = nil -%}
+  {%- assign vendor = nil -%}
 {%- endif -%}
 
 <article class="product-card" aria-label="{{ product_title }}">

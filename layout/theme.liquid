@@ -28,6 +28,21 @@
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js','js');</script>
+    <script>
+      window.BTBConfig = {
+        routes: {
+          cart_add: '{{ routes.cart_add_url }}',
+          cart_get: '{{ routes.cart_url }}.js',
+          cart_update: '{{ routes.cart_update_url }}',
+          cart_change: '{{ routes.cart_change_url }}',
+          search: '{{ routes.search_url }}'
+        },
+        money_format: {{ shop.money_format | json }},
+        currency: {{ shop.currency | json }},
+        cart_item_count: {{ cart.item_count }},
+        shop_name: {{ shop.name | json }}
+      };
+    </script>
   </head>
 
   <body class="template-{{ template.name | handle }}{% if customer %} customer-logged-in{% endif %}">

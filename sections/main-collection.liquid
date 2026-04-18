@@ -1,7 +1,6 @@
 <div class="collection-page">
   <div class="container">
 
-    <!-- Collection Header -->
     <div class="collection-header">
       <nav aria-label="Breadcrumb" style="font-size:0.82rem;color:var(--color-text-light);margin-bottom:0.75rem">
         <a href="{{ routes.root_url }}" style="color:var(--color-text-light)">Home</a>
@@ -16,7 +15,6 @@
       {% endif %}
     </div>
 
-    <!-- Filters & Sort bar -->
     {% paginate collection.products by 24 %}
 
     <div class="collection-filters-bar">
@@ -38,7 +36,6 @@
       </div>
     </div>
 
-    <!-- Products grid -->
     {% if collection.products.size > 0 %}
       <div class="products-grid">
         {% for product in collection.products %}
@@ -49,12 +46,11 @@
       <div style="text-align:center;padding:5rem 0;color:var(--color-text-light)">
         <div style="font-size:5rem;margin-bottom:1.5rem" aria-hidden="true">🧸</div>
         <h3 style="margin-bottom:0.5rem">{{ 'products.general.no_products' | t }}</h3>
-        <p style="margin-top:0.5rem;color:var(--color-text-light)">Check back soon — new toys are on their way!</p>
+        <p>Check back soon — new toys are on their way!</p>
         <a href="/collections/all" class="btn btn-primary" style="margin-top:2rem">Shop All Toys</a>
       </div>
     {% endif %}
 
-    <!-- Pagination -->
     {% if paginate.pages > 1 %}
       <div class="pagination-wrap" role="navigation" aria-label="Pagination">
         {{ paginate | default_pagination }}
@@ -66,3 +62,12 @@
   </div>
 </div>
 
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "section",
+  "class": "main-collection-section",
+  "settings": [],
+  "presets": [{ "name": "Collection" }]
+}
+{% endschema %}
